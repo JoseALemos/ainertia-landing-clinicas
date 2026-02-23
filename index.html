@@ -34,11 +34,14 @@
 
     /* ── NAV ── */
     nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem; background: var(--white);
+      background: var(--white);
       border-bottom: 1px solid var(--border);
       position: sticky; top: 0; z-index: 100;
       box-shadow: var(--shadow-sm);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; max-width: 1200px; margin: 0 auto; width: 100%;
     }
     .logo { font-weight: 800; font-size: 1.15rem; color: var(--dark); letter-spacing: -0.3px; }
     .logo span { color: var(--teal); }
@@ -58,6 +61,7 @@
       text-align: center;
       border-bottom: 1px solid var(--border);
     }
+    .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 0.5rem;
       background: var(--white); border: 1px solid var(--border);
@@ -107,7 +111,7 @@
 
     /* ── SECCIONES GENERALES ── */
     .section { padding: 4.5rem 2rem; }
-    .section-inner { max-width: 1080px; margin: 0 auto; }
+    .section-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
     .section-center { text-align: center; }
     .section-label {
       display: inline-block; color: var(--teal);
@@ -143,7 +147,7 @@
     .solution { background: var(--bg); }
     .solution-grid {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 2.5rem; align-items: center; margin-top: 2rem;
+      gap: 3rem; align-items: center; margin-top: 2rem;
     }
     .solution-visual {
       background: var(--white); border: 1px solid var(--border);
@@ -224,6 +228,7 @@
       text-align: center; padding: 5rem 2rem;
       border-top: 1px solid var(--border);
     }
+    .cta-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
     .cta-section .section-title { max-width: 620px; margin: 0 auto 1rem; }
     .cta-section .section-sub { margin-bottom: 2.5rem; }
     .cta-form {
@@ -251,10 +256,27 @@
       background: var(--dark); color: rgba(255,255,255,0.5);
       padding: 2rem; text-align: center; font-size: 0.82rem;
     }
+    footer .footer-inner { max-width: 1200px; margin: 0 auto; }
     footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
     footer a:hover { color: #fff; }
 
     /* ── RESPONSIVE ── */
+    /* ── DESKTOP ── */
+    @media (min-width: 1280px) {
+      .section { padding: 5.5rem 3rem; }
+      .hero { padding: 6rem 3rem 5.5rem; }
+      .hero h1 { font-size: 3.2rem; }
+      .section-title { font-size: 2.4rem; }
+      .metrics-grid { gap: 2rem; }
+      .empathy-grid { gap: 2rem; }
+      .steps { gap: 2rem; }
+      .metric-number { font-size: 3.2rem; }
+    }
+    @media (min-width: 1600px) {
+      .section { padding: 6rem 4rem; }
+      .hero { padding: 7rem 4rem 6rem; }
+    }
+
     @media (max-width: 900px) {
       .empathy-grid { grid-template-columns: 1fr 1fr; }
       .metrics-grid { grid-template-columns: 1fr 1fr; }
@@ -270,7 +292,7 @@
       .hero-trust { gap: 1rem; }
       .trust-dot { display: none; }
       .nav-tagline { display: none; }
-      nav { padding: 0.875rem 1.25rem; }
+      .nav-inner { padding: 0.875rem 1.25rem; }
     }
     @media (max-width: 400px) {
       .steps { grid-template-columns: 1fr; }
@@ -281,32 +303,36 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <div style="display:flex;align-items:center;gap:.5rem">
-    <div class="logo">Ainertia<span>.</span></div>
-    <span class="nav-tagline">Soluciones IA para clínicas</span>
+  <div class="nav-inner">
+    <div style="display:flex;align-items:center;gap:.5rem">
+      <div class="logo">Ainertia<span>.</span></div>
+      <span class="nav-tagline">Soluciones IA para clínicas</span>
+    </div>
+    <a href="#contacto" class="cta-nav">Solicitar demostración</a>
   </div>
-  <a href="#contacto" class="cta-nav">Solicitar demostración</a>
 </nav>
 
 <!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-eyebrow">Asistente IA para clínicas dentales</div>
-  <h1>Tu clínica, siempre <em>atendida</em>.<br/>Tu equipo, siempre <em>libre</em>.</h1>
-  <p class="hero-sub">
-    Automatiza recordatorios, confirmaciones y reseñas sin que tu equipo tenga que levantar el teléfono. Más tiempo para lo que de verdad importa: tus pacientes.
-  </p>
-  <div class="hero-ctas">
-    <a href="#contacto" class="btn-primary">Ver cómo funciona →</a>
-    <a href="#resultados" class="btn-secondary">Ver resultados reales</a>
-  </div>
-  <div class="hero-trust">
-    <div class="trust-item">✅ <strong>Sin permanencia</strong></div>
-    <div class="trust-dot"></div>
-    <div class="trust-item">✅ <strong>Instalación en 24h</strong></div>
-    <div class="trust-dot"></div>
-    <div class="trust-item">✅ <strong>Soporte en español</strong></div>
-    <div class="trust-dot"></div>
-    <div class="trust-item">✅ <strong>Funciona con WhatsApp</strong></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Asistente IA para clínicas dentales</div>
+    <h1>Tu clínica, siempre <em>atendida</em>.<br/>Tu equipo, siempre <em>libre</em>.</h1>
+    <p class="hero-sub">
+      Automatiza recordatorios, confirmaciones y reseñas sin que tu equipo tenga que levantar el teléfono. Más tiempo para lo que de verdad importa: tus pacientes.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contacto" class="btn-primary">Ver cómo funciona →</a>
+      <a href="#resultados" class="btn-secondary">Ver resultados reales</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">✅ <strong>Sin permanencia</strong></div>
+      <div class="trust-dot"></div>
+      <div class="trust-item">✅ <strong>Instalación en 24h</strong></div>
+      <div class="trust-dot"></div>
+      <div class="trust-item">✅ <strong>Soporte en español</strong></div>
+      <div class="trust-dot"></div>
+      <div class="trust-item">✅ <strong>Funciona con WhatsApp</strong></div>
+    </div>
   </div>
 </section>
 
@@ -472,6 +498,7 @@
 
 <!-- ── CTA / CONTACTO ── -->
 <section class="cta-section" id="contacto">
+<div class="cta-inner">
   <span class="section-label">Sin compromiso</span>
   <h2 class="section-title">¿Hablamos? Cuéntanos cómo es tu clínica</h2>
   <p class="section-sub">Una llamada de 20 minutos es suficiente para saber si tiene sentido para ti. Sin presiones, sin letra pequeña.</p>
@@ -498,11 +525,14 @@
 
   <p class="cta-note" style="margin-top:1rem">O por email: <a href="mailto:comercial@ainertia.ai" style="color:var(--blue)">comercial@ainertia.ai</a></p>
   <div class="cta-guarantee">🔒 Tus datos no se comparten con terceros. Solo te contactamos nosotros.</div>
+</div><!-- /cta-inner -->
 </section>
 
 <!-- ── FOOTER ── -->
 <footer>
-  <p>© 2026 <a href="https://ainertia.io">Ainertia Capital S.L.</a> · Córdoba, España · <a href="mailto:hola@ainertia.io">hola@ainertia.io</a></p>
+  <div class="footer-inner">
+    <p>© 2026 <a href="https://ainertia.io">Ainertia Capital S.L.</a> · Córdoba, España · <a href="mailto:hola@ainertia.io">hola@ainertia.io</a></p>
+  </div>
 </footer>
 
 </body>

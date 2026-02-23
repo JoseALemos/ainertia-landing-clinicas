@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Especificación Técnica v2.0 — Automatización WhatsApp para Clínicas Dentales | Ainertia Capital</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #1a6fb5; --blue-light: #e8f3fc; --teal: #0fa98e;
+      --dark: #1a2332; --text: #2c3e50; --muted: #6b7c93;
+      --border: #e2e8f0; --bg: #f8fafc; --code-bg: #1e2d3d;
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text); background: #fff; font-size: 14px; line-height: 1.65; max-width: 860px; margin: 0 auto; }
+
+    /* COVER */
+    .cover { background: linear-gradient(160deg, #1a2332 0%, #1e3a5f 100%); color: #fff; padding: 60px; page-break-after: always; }
+    .cover-logo { font-size: 1.2rem; font-weight: 800; margin-bottom: 50px; }
+    .cover-logo span { color: var(--teal); }
+    .cover-tag { display: inline-block; background: rgba(15,169,142,.2); border: 1px solid rgba(15,169,142,.4); color: var(--teal); border-radius: 100px; padding: .25rem .875rem; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.25rem; }
+    .cover h1 { font-size: 2rem; font-weight: 900; line-height: 1.2; margin-bottom: 1rem; }
+    .cover h1 em { color: var(--teal); font-style: normal; }
+    .cover-sub { color: rgba(255,255,255,.6); font-size: .95rem; max-width: 500px; margin-bottom: 50px; }
+    .cover-meta { display: flex; gap: 2rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.12); }
+    .cover-meta-item { font-size: .72rem; color: rgba(255,255,255,.5); }
+    .cover-meta-item strong { display: block; font-size: .82rem; color: rgba(255,255,255,.85); font-weight: 600; margin-bottom: .1rem; }
+
+    /* LAYOUT */
+    .page { padding: 40px 60px; }
+    .page + .page { border-top: 2px solid var(--border); }
+    .section-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--teal); margin-bottom: .4rem; }
+    h2 { font-size: 1.4rem; font-weight: 800; color: var(--dark); line-height: 1.2; margin-bottom: .75rem; }
+    h3 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: .4rem; margin-top: 1.25rem; }
+    h4 { font-size: .875rem; font-weight: 700; color: var(--blue); margin-bottom: .3rem; margin-top: 1rem; }
+    p { margin-bottom: .75rem; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { padding-left: 1.25rem; margin-bottom: .75rem; }
+    li { margin-bottom: .3rem; font-size: .875rem; }
+
+    /* CODE */
+    pre {
+      background: var(--code-bg); color: #e2e8f0; border-radius: 10px;
+      padding: 1.25rem 1.5rem; font-family: 'Courier New', monospace;
+      font-size: .8rem; line-height: 1.7; overflow-x: auto;
+      margin: .875rem 0; white-space: pre;
+    }
+    code { background: #f1f5f9; color: var(--blue); padding: .1rem .35rem; border-radius: 4px; font-size: .82rem; font-family: 'Courier New', monospace; }
+
+    /* CARDS */
+    .card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+    .card h3 { margin-top: 0; }
+
+    /* GRID */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+
+    /* PROVIDER CARDS */
+    .provider-card {
+      border: 2px solid var(--border); border-radius: 14px; padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .provider-card.meta { border-left: 5px solid var(--blue); }
+    .provider-card.qr   { border-left: 5px solid var(--teal); }
+    .provider-header { display: flex; align-items: center; gap: .75rem; margin-bottom: .875rem; }
+    .provider-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .provider-icon.meta { background: var(--blue-light); }
+    .provider-icon.qr   { background: #e6f7f4; }
+    .provider-name { font-weight: 800; font-size: .95rem; color: var(--dark); }
+    .provider-sub  { font-size: .78rem; color: var(--muted); }
+
+    /* PLAN TABLE */
+    .plan-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border-radius: 14px; overflow: hidden; margin: 1rem 0; }
+    .plan-col { background: #fff; padding: 1.25rem; }
+    .plan-col.featured { background: #f0f7ff; }
+    .plan-name { font-weight: 800; font-size: .95rem; color: var(--dark); margin-bottom: .2rem; }
+    .plan-price { font-size: 1.5rem; font-weight: 900; color: var(--blue); margin-bottom: .5rem; }
+    .plan-price span { font-size: .8rem; font-weight: 500; color: var(--muted); }
+    .plan-feat { font-size: .78rem; color: var(--text); line-height: 1.7; }
+    .plan-feat li { list-style: none; padding-left: 0; }
+    .plan-feat li::before { content: "✓ "; color: var(--teal); font-weight: 700; }
+    .plan-feat li.no::before { content: "— "; color: var(--border); }
+
+    /* STACK */
+    .stack-item { display: flex; gap: .875rem; align-items: flex-start; padding: .875rem 1rem; border: 1px solid var(--border); border-radius: 10px; margin-bottom: .625rem; }
+    .stack-badge { background: var(--blue); color: #fff; border-radius: 8px; padding: .3rem .7rem; font-size: .7rem; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+    .stack-badge.alt { background: var(--teal); }
+    .stack-badge.warn { background: #f59e0b; }
+    .stack-item p { font-size: .82rem; color: var(--muted); margin: .2rem 0 0; }
+
+    /* FLOW */
+    .flow { background: var(--code-bg); color: #e2e8f0; border-radius: 12px; padding: 1.5rem; font-family: 'Courier New', monospace; font-size: .8rem; line-height: 2; margin: 1rem 0; }
+    .flow .step   { color: #93c5fd; }
+    .flow .action { color: #6ee7b7; }
+    .flow .cond   { color: #fde68a; }
+    .flow .arrow  { color: #64748b; }
+
+    /* TABLE */
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .82rem; }
+    th { background: var(--bg); text-align: left; padding: .625rem .875rem; border-bottom: 2px solid var(--border); font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+    td { padding: .625rem .875rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+
+    /* BADGE */
+    .badge { display: inline-block; border-radius: 100px; padding: .15rem .6rem; font-size: .68rem; font-weight: 600; }
+    .badge-blue   { background: var(--blue-light); color: var(--blue); }
+    .badge-green  { background: #dcfce7; color: #16a34a; }
+    .badge-yellow { background: #fef9c3; color: #a16207; }
+    .badge-red    { background: #fee2e2; color: #dc2626; }
+    .badge-teal   { background: #e6f7f4; color: #0f766e; }
+
+    /* ALERT */
+    .alert { border-radius: 10px; padding: .875rem 1rem; margin: .875rem 0; font-size: .82rem; display: flex; gap: .625rem; }
+    .alert-info     { background: var(--blue-light); border: 1px solid #bfdbfe; color: #1e40af; }
+    .alert-warn     { background: #fef9c3; border: 1px solid #fde68a; color: #92400e; }
+    .alert-critical { background: #fee2e2; border: 1px solid #fecaca; color: #991b1b; }
+    .alert-success  { background: #dcfce7; border: 1px solid #bbf7d0; color: #166534; }
+
+    /* FOOTER */
+    .doc-footer { padding: 1.25rem 60px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: .7rem; color: var(--muted); }
+
+    @media print {
+      body { max-width: 100%; }
+      .cover { page-break-after: always; }
+      .page { page-break-inside: avoid; }
+      @page { margin: 0; size: A4; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     PORTADA
+════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-logo">Ainertia<span>.</span></div>
+  <div class="cover-tag">Especificación Técnica v2.0</div>
+  <h1>Sistema de <em>automatización WhatsApp</em><br/>para clínicas dentales</h1>
+  <p class="cover-sub">Arquitectura, flujos, stack tecnológico e integraciones para el equipo de desarrollo. Implementación 100% en Node.js, sin dependencias externas de automatización.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>Proyecto</strong>Ainertia Dental Automation</div>
+    <div class="cover-meta-item"><strong>Versión</strong>2.0 — Producción</div>
+    <div class="cover-meta-item"><strong>Audiencia</strong>Equipo IT / Desarrollo</div>
+    <div class="cover-meta-item"><strong>Fecha</strong>Febrero 2026</div>
+    <div class="cover-meta-item"><strong>Contacto técnico</strong>tech@ainertia.ai</div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 1 — RESUMEN Y PLANES
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 1</div>
+  <h2>Resumen del sistema y planes comerciales</h2>
+
+  <p>El sistema automatiza la comunicación entre clínicas dentales y sus pacientes a través de WhatsApp. Gestiona el ciclo completo: <strong>recordatorio de cita → confirmación → cancelación → solicitud de reseña → FAQ automático</strong>.</p>
+  <p>Es <strong>multi-tenant</strong>: una única instancia sirve a múltiples clínicas. Toda la lógica de automatización está implementada en <strong>Node.js nativo</strong>, sin dependencias de herramientas de automatización externas.</p>
+
+  <h3>Planes disponibles</h3>
+  <div class="plan-grid">
+    <div class="plan-col">
+      <div class="plan-name">🪄 Básico</div>
+      <div class="plan-price">149€<span>/mes</span></div>
+      <ul class="plan-feat">
+        <li>Conexión WhatsApp mediante QR</li>
+        <li>Recordatorios 24h antes</li>
+        <li>Confirmación / Cancelación</li>
+        <li>Solicitud de reseña Google</li>
+        <li>Agenda via CSV (subida manual)</li>
+        <li>Panel de control básico</li>
+        <li>1 número WhatsApp</li>
+        <li class="no">Google Calendar</li>
+        <li class="no">FAQ con IA</li>
+        <li class="no">Integración software clínica</li>
+      </ul>
+    </div>
+    <div class="plan-col featured">
+      <div class="plan-name">⚡ Profesional</div>
+      <div class="plan-price">249€<span>/mes</span></div>
+      <ul class="plan-feat">
+        <li>WhatsApp: QR <strong>o</strong> número verificado Meta (a elegir)</li>
+        <li>Todo lo de Básico</li>
+        <li>FAQ automático con IA</li>
+        <li>Integración Google Calendar</li>
+        <li>Panel con métricas avanzadas</li>
+        <li>Mensajes personalizados por clínica</li>
+        <li>Notificaciones a recepción</li>
+        <li>Soporte prioritario</li>
+        <li class="no">Integración software clínica</li>
+        <li class="no">Multi-sede</li>
+      </ul>
+    </div>
+    <div class="plan-col">
+      <div class="plan-name">🏢 Avanzado</div>
+      <div class="plan-price">399€<span>/mes</span></div>
+      <ul class="plan-feat">
+        <li>Número verificado Meta (recomendado)</li>
+        <li>Todo lo de Profesional</li>
+        <li>Integración nativa software clínica</li>
+        <li>Multi-sede (hasta 5 consultas)</li>
+        <li>Informes automáticos mensuales</li>
+        <li>API de integración propia</li>
+        <li>Onboarding dedicado</li>
+        <li>SLA 99.5% uptime</li>
+        <li>Gestor de cuenta asignado</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    ℹ️ <span>La elección del proveedor WhatsApp (QR vs. número verificado Meta) está disponible en planes Profesional y Avanzado. El plan Básico incluye únicamente conexión mediante QR.</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 2 — MÓDULO WHATSAPP: DOS PROVEEDORES
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 2</div>
+  <h2>Módulo WhatsApp: dos modos de conexión</h2>
+
+  <p>El sistema ofrece dos modos de conexión a WhatsApp. La clínica elige en el momento del onboarding cuál se adapta mejor a su situación. La lógica de envío/recepción de mensajes es idéntica en ambos; solo cambia el adaptador de transporte.</p>
+
+  <div class="grid-2" style="margin-top:1.25rem">
+
+    <!-- META API -->
+    <div class="provider-card meta">
+      <div class="provider-header">
+        <div class="provider-icon meta">🔷</div>
+        <div>
+          <div class="provider-name">Número verificado Meta</div>
+          <div class="provider-sub">WhatsApp Business API oficial</div>
+        </div>
+      </div>
+      <ul style="font-size:.82rem;padding-left:1.1rem;margin-bottom:.875rem">
+        <li>Número de teléfono aprobado por Meta</li>
+        <li>Envío masivo sin riesgo de suspensión</li>
+        <li>Plantillas de mensajes aprobadas (mayor confianza del destinatario)</li>
+        <li>Registro de Business Manager obligatorio</li>
+        <li>Proceso de verificación: 24-72h hábiles</li>
+        <li>Sin dependencia de tener el móvil conectado</li>
+        <li>Requiere acuerdo con proveedor BSP (360dialog recomendado)</li>
+      </ul>
+      <div style="font-size:.75rem;color:var(--muted)">
+        <strong>Ideal para:</strong> Plan Profesional/Avanzado, clínicas con alto volumen de citas (>30/día), múltiples dentistas, cadenas.
+      </div>
+    </div>
+
+    <!-- QR -->
+    <div class="provider-card qr">
+      <div class="provider-header">
+        <div class="provider-icon qr">📱</div>
+        <div>
+          <div class="provider-name">Conexión mediante QR</div>
+          <div class="provider-sub">Número WhatsApp existente de la clínica</div>
+        </div>
+      </div>
+      <ul style="font-size:.82rem;padding-left:1.1rem;margin-bottom:.875rem">
+        <li>La clínica usa su propio número WhatsApp actual</li>
+        <li>Activación en minutos: escanear QR desde el panel</li>
+        <li>Sin procesos de verificación con Meta</li>
+        <li>Sin coste adicional de proveedor BSP</li>
+        <li>Funciona con número de empresa o personal</li>
+        <li>Sesión persistente: no requiere móvil activo</li>
+        <li>Adecuado para clínicas de bajo/medio volumen</li>
+      </ul>
+      <div style="font-size:.75rem;color:var(--muted)">
+        <strong>Ideal para:</strong> Plan Básico/Profesional, clínicas pequeñas, onboarding rápido sin trámites.
+      </div>
+    </div>
+  </div>
+
+  <h3>Arquitectura del módulo WhatsApp</h3>
+  <p>Internamente se usa el patrón <strong>Adapter</strong>: la lógica de negocio llama a una interfaz común y el adaptador concreto gestiona el protocolo de cada proveedor.</p>
+
+  <pre>
+// services/whatsapp/WhatsAppAdapter.js — interfaz común
+class WhatsAppAdapter {
+  async sendMessage(to, body)       { throw new Error('Not implemented'); }
+  async sendTemplate(to, template)  { throw new Error('Not implemented'); }
+  async isConnected()               { throw new Error('Not implemented'); }
+}
+
+// services/whatsapp/MetaAdapter.js  — proveedor oficial
+class MetaAdapter extends WhatsAppAdapter {
+  constructor(clinica) {
+    super();
+    this.apiKey   = clinica.wa_api_key;
+    this.phoneId  = clinica.wa_phone_id;
+    this.baseUrl  = 'https://waba.360dialog.io/v1';
+  }
+  async sendMessage(to, body) {
+    return fetch(`${this.baseUrl}/messages`, {
+      method: 'POST',
+      headers: { 'D360-API-KEY': this.apiKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ to, type: 'text', text: { body } })
+    });
+  }
+  async sendTemplate(to, { name, lang, vars }) {
+    // Envía template pre-aprobado por Meta (obligatorio fuera de la ventana 24h)
+    return fetch(`${this.baseUrl}/messages`, {
+      method: 'POST',
+      headers: { 'D360-API-KEY': this.apiKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to, type: 'template',
+        template: { name, language: { code: lang },
+          components: [{ type: 'body', parameters: vars.map(v => ({ type: 'text', text: v })) }] }
+      })
+    });
+  }
+}
+
+// services/whatsapp/QRAdapter.js — conexión mediante QR
+class QRAdapter extends WhatsAppAdapter {
+  constructor(clinica, sessionStore) {
+    super();
+    this.clinicaId   = clinica.id;
+    this.sessionStore = sessionStore;  // credenciales de sesión en DB
+    this.socket       = null;          // referencia al socket activo
+  }
+  async sendMessage(to, body) {
+    const jid = to.replace(/\D/g, '') + '@s.whatsapp.net';
+    return this.socket.sendMessage(jid, { text: body });
+  }
+  async sendTemplate(to, { body }) {
+    // En modo QR los templates se envían como texto libre
+    return this.sendMessage(to, body);
+  }
+}
+
+// services/whatsapp/WhatsAppFactory.js — selección automática por clínica
+function createAdapter(clinica, sessionStore) {
+  if (clinica.wa_provider === 'meta') return new MetaAdapter(clinica);
+  if (clinica.wa_provider === 'qr')   return new QRAdapter(clinica, sessionStore);
+  throw new Error(`Proveedor desconocido: ${clinica.wa_provider}`);
+}
+  </pre>
+
+  <h3>Gestión del QR desde el panel de administración</h3>
+  <p>Las clínicas con modo QR disponen de una pantalla de configuración en su panel donde:</p>
+  <ol>
+    <li>Pulsan <strong>"Conectar WhatsApp"</strong></li>
+    <li>Se muestra un código QR generado en tiempo real vía WebSocket</li>
+    <li>El responsable de la clínica escanea el QR con su teléfono desde <em>WhatsApp → Dispositivos vinculados</em></li>
+    <li>La sesión queda activa y se persiste en base de datos (reconexión automática)</li>
+    <li>Un indicador verde confirma el estado de conexión en todo momento</li>
+  </ol>
+
+  <div class="alert alert-warn">
+    ⚠️ <span><strong>Modo QR — Limitación importante:</strong> WhatsApp aplica restricciones de volumen en cuentas no verificadas. Para clínicas que superen ~50 mensajes/día se recomienda migrar al modo número verificado Meta para evitar suspensiones. El sistema detecta el volumen y avisa proactivamente.</span>
+  </div>
+
+  <h3>Campos en DB según proveedor</h3>
+  <pre>
+-- Campo wa_provider en tabla clinicas
+ALTER TABLE clinicas ADD COLUMN wa_provider VARCHAR(10) DEFAULT 'qr';
+  -- Valores: 'qr' | 'meta'
+
+ALTER TABLE clinicas ADD COLUMN wa_phone_id  VARCHAR(50);   -- Solo Meta: phone_number_id
+ALTER TABLE clinicas ADD COLUMN wa_api_key   TEXT;          -- Solo Meta: API key 360dialog
+
+-- Tabla para sesiones QR persistidas
+CREATE TABLE wa_sessions (
+  clinica_id   UUID PRIMARY KEY REFERENCES clinicas(id) ON DELETE CASCADE,
+  creds_json   TEXT NOT NULL,   -- credenciales de sesión cifradas (AES-256)
+  connected    BOOLEAN DEFAULT false,
+  last_seen    TIMESTAMPTZ,
+  updated_at   TIMESTAMPTZ DEFAULT NOW()
+);
+  </pre>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 3 — ARQUITECTURA GENERAL
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 3</div>
+  <h2>Arquitectura del sistema</h2>
+
+  <div class="flow">
+<span class="step">[AGENDA CLÍNICA]</span>
+  CSV manual / Google Calendar / API nativa
+          │
+          ▼
+<span class="action">[AINERTIA CORE — Node.js + PostgreSQL]</span>
+  ├── Scheduler Engine  (node-cron + Bull Queue)
+  ├── Conversation Manager (máquina de estados)
+  ├── WhatsApp Factory  (selección Meta o QR por clínica)
+  ├── AI FAQ Engine     (OpenAI GPT-4o-mini)
+  └── REST API          (panel de control por clínica)
+          │
+          ├──────────────────────────────────┐
+          ▼                                  ▼
+<span class="step">[WHATSAPP — MetaAdapter]</span>        <span class="step">[WHATSAPP — QRAdapter]</span>
+  360dialog API → Meta Cloud API       Conexión multidispositivo
+  Plantillas aprobadas                 QR escaneado desde panel
+          │                                  │
+          └──────────────┬───────────────────┘
+                         ▼
+              <span class="step">[PACIENTE]</span>  (recibe + responde por WhatsApp)
+                         │
+              <span class="cond">[MOTOR DE DECISIÓN — Node.js nativo]</span>
+                ├── Confirmar  → actualizar cita en DB
+                ├── Cancelar   → notificar recepción + liberar hueco
+                ├── Reagendar  → flujo de selección de horario
+                └── FAQ / libre → GPT-4o-mini con contexto clínica
+  </div>
+
+  <h3>Componentes principales</h3>
+  <table>
+    <thead><tr><th>Componente</th><th>Responsabilidad</th><th>Tecnología</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Core API</strong></td><td>Lógica de negocio, multi-tenant, gestión de citas</td><td>Node.js / Express</td></tr>
+      <tr><td><strong>WhatsApp Factory</strong></td><td>Envío/recepción. Selecciona Meta o QR según clínica</td><td>Node.js (ver §2)</td></tr>
+      <tr><td><strong>Scheduler</strong></td><td>Cron jobs para recordatorios y reseñas</td><td>node-cron + Bull + Redis</td></tr>
+      <tr><td><strong>Conversation Manager</strong></td><td>Máquina de estados por conversación activa</td><td>Node.js + PostgreSQL</td></tr>
+      <tr><td><strong>AI FAQ Engine</strong></td><td>Respuestas automáticas a preguntas libres</td><td>OpenAI GPT-4o-mini</td></tr>
+      <tr><td><strong>Integration Layer</strong></td><td>Lectura de agenda (CSV / Google Calendar / API)</td><td>Node.js adapters</td></tr>
+      <tr><td><strong>Panel de Control</strong></td><td>Dashboard por clínica + panel superadmin</td><td>React / Next.js</td></tr>
+      <tr><td><strong>Base de Datos</strong></td><td>Persistencia principal multi-tenant</td><td>PostgreSQL</td></tr>
+      <tr><td><strong>Queue</strong></td><td>Cola de mensajes, reintentos, rate limiting</td><td>Bull + Redis</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-success">
+    ✅ <span><strong>Sin n8n ni herramientas de automatización externas.</strong> Toda la lógica de flujos, scheduling y decisiones de conversación está implementada en Node.js puro, lo que elimina dependencias externas, reduce costes de infraestructura y simplifica el despliegue.</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 4 — INTEGRACIÓN CON LA AGENDA
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 4</div>
+  <h2>Integración con la agenda de la clínica</h2>
+
+  <p>El método de integración depende del <strong>plan contratado</strong>. Todos los métodos convergen en el mismo modelo interno de datos (tabla <code>citas</code>). El sistema admite múltiples métodos activos simultáneamente.</p>
+
+  <table>
+    <thead>
+      <tr><th>Método</th><th>Plan requerido</th><th>Esfuerzo implantación</th><th>Recomendación</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>A — CSV manual</strong></td>
+        <td><span class="badge badge-blue">Básico+</span></td>
+        <td>Mínimo</td>
+        <td>MVP, primera clínica</td>
+      </tr>
+      <tr>
+        <td><strong>B — Webhook entrante</strong></td>
+        <td><span class="badge badge-blue">Básico+</span></td>
+        <td>Bajo (script en la clínica)</td>
+        <td>Clínicas con IT propio</td>
+      </tr>
+      <tr>
+        <td><strong>C — Google Calendar</strong></td>
+        <td><span class="badge badge-teal">Profesional+</span></td>
+        <td>Medio (OAuth2)</td>
+        <td>Clínicas pequeñas/medianas</td>
+      </tr>
+      <tr>
+        <td><strong>D — Software clínica (API/DB)</strong></td>
+        <td><span class="badge badge-yellow">Avanzado</span></td>
+        <td>Alto (acuerdo con proveedor)</td>
+        <td>Gesden, Cliniccloud, RCDent</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- MÉTODO A -->
+  <h3>Método A — Importación CSV/Excel (todos los planes)</h3>
+  <p>La clínica exporta su agenda desde su software habitual y la sube al panel de Ainertia (arrastra el fichero o programa una subida automática vía Google Drive / Dropbox).</p>
+  <pre>
+# Formato CSV esperado
+fecha_hora,paciente_nombre,paciente_telefono,dentista,tipo_cita,duracion_min
+2026-03-15 10:30,Ana García,+34612345678,Dr. Fernández,Limpieza,45
+2026-03-15 11:30,Luis Martín,612345678,Dra. Ruiz,Revisión,30
+
+# Endpoint de importación
+POST /api/v1/clinicas/:clinica_id/agenda/import
+Authorization: Bearer {jwt_token}
+Content-Type: multipart/form-data
+Body: { file: agenda.csv }
+
+# El sistema normaliza teléfonos a E.164 (+34XXXXXXXXX)
+# Crea pacientes nuevos si el teléfono no existe
+# Actualiza citas existentes (ext_id como clave de deduplicación)
+  </pre>
+
+  <!-- MÉTODO B -->
+  <h3>Método B — Webhook push desde agenda (todos los planes)</h3>
+  <p>El software de la clínica (o un script intermedio) notifica a Ainertia en tiempo real cada vez que se crea, modifica o cancela una cita.</p>
+  <pre>
+POST /api/v1/webhooks/cita
+Authorization: Bearer {api_key_clinica}
+Content-Type: application/json
+
+{
+  "evento": "cita_creada",       // cita_creada | cita_modificada | cita_cancelada | cita_completada
+  "ext_id": "GESDEN-20260315-001",
+  "paciente": {
+    "nombre": "Ana García",
+    "telefono": "+34612345678",
+    "email": "ana@example.com"   // opcional
+  },
+  "cita": {
+    "fecha_hora": "2026-03-15T10:30:00+01:00",
+    "duracion_min": 45,
+    "tipo": "Limpieza",
+    "dentista": "Dr. Fernández"
+  }
+}
+
+// Respuesta
+{ "ok": true, "cita_id": "uuid-ainertia" }
+  </pre>
+
+  <!-- MÉTODO C -->
+  <h3>Método C — Google Calendar (plan Profesional y Avanzado)</h3>
+  <p>La clínica vincula su Google Calendar mediante OAuth2. Ainertia lee los eventos como citas y opcionalmente escribe actualizaciones de estado (confirmada/cancelada) de vuelta al calendar.</p>
+  <pre>
+// Flujo OAuth2
+1. Clínica pulsa "Conectar Google Calendar" en el panel
+2. Redirección a Google OAuth2 consent screen
+3. Ainertia recibe authorization code
+4. Intercambio por access_token + refresh_token (almacenados cifrados en DB)
+5. Ainertia subscribe a push notifications del calendar (webhook Google)
+
+// Sincronización
+GET https://www.googleapis.com/calendar/v3/calendars/{calendarId}/events
+  ?timeMin={ahora}
+  &timeMax={ahora + 48h}
+  &singleEvents=true
+  &orderBy=startTime
+
+// Mapeo de campos esperado (configurable por clínica):
+event.summary         → tipo_cita + dentista
+event.description     → paciente_nombre, paciente_telefono (regex configurable)
+event.start.dateTime  → fecha_hora
+event.end.dateTime    → fecha_hora + duracion_min
+
+// Variables de entorno requeridas
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+GOOGLE_REDIRECT_URI=https://api.ainertia.ai/auth/google/callback
+  </pre>
+  <div class="alert alert-warn">
+    ⚠️ <span>El formato de los eventos de Google Calendar varía según cómo cada clínica los haya nombrado. El mapeo de campos (dónde está el teléfono del paciente, el dentista, etc.) es <strong>configurable por clínica</strong> desde el panel de administración de Ainertia.</span>
+  </div>
+
+  <!-- MÉTODO D -->
+  <h3>Método D — Software de gestión dental (plan Avanzado)</h3>
+  <p>Integración nativa con los principales programas de gestión dental del mercado español. Requiere acceso técnico al servidor de la clínica y acuerdo firmado con el proveedor del software.</p>
+  <table>
+    <thead><tr><th>Software</th><th>Método disponible</th><th>Complejidad</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Cliniccloud</strong></td><td>API REST documentada (token OAuth2)</td><td><span class="badge badge-green">Bajo</span></td></tr>
+      <tr><td><strong>Gesden</strong></td><td>Exportación automática a fichero (SFTP/carpeta compartida)</td><td><span class="badge badge-yellow">Medio</span></td></tr>
+      <tr><td><strong>RCDent</strong></td><td>Acceso directo a BD SQL Server (con permiso)</td><td><span class="badge badge-red">Alto</span></td></tr>
+      <tr><td><strong>Oris / Dental Lab</strong></td><td>Webhook personalizado + script de integración</td><td><span class="badge badge-yellow">Medio</span></td></tr>
+    </tbody>
+  </table>
+  <div class="alert alert-critical">
+    🔴 <span>El acceso directo a base de datos del software de la clínica <strong>requiere acuerdo firmado</strong> con la clínica y revisión legal. Implementar solo en plan Avanzado con cliente que lo solicite explícitamente.</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 5 — STACK TECNOLÓGICO
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 5</div>
+  <h2>Stack tecnológico</h2>
+
+  <div class="stack-item">
+    <span class="stack-badge">Backend</span>
+    <div><strong>Node.js 22 + Express</strong>
+    <p>API REST principal. Gestiona webhooks de WhatsApp, lógica multi-tenant, scheduling de mensajes y conexión a DB. Sin frameworks de automatización externos.</p></div>
+  </div>
+  <div class="stack-item">
+    <span class="stack-badge">Base de datos</span>
+    <div><strong>PostgreSQL 16+</strong>
+    <p>Clínicas, pacientes, citas, estado de conversaciones, logs de mensajes, sesiones QR (cifradas), tokens OAuth2 de Google Calendar.</p></div>
+  </div>
+  <div class="stack-item">
+    <span class="stack-badge alt">Queue</span>
+    <div><strong>Bull + Redis</strong>
+    <p>Cola de mensajes para el scheduling de recordatorios y reseñas. Reintentos automáticos con backoff exponencial. Rate limiting por clínica para no superar límites de WhatsApp.</p></div>
+  </div>
+  <div class="stack-item">
+    <span class="stack-badge alt">WhatsApp Meta</span>
+    <div><strong>360dialog (recomendado) o Twilio WhatsApp</strong>
+    <p>BSP (Business Solution Provider) para Meta Cloud API. 360dialog: ~15€/mes/número, mejor soporte en Europa, panel de gestión de plantillas. Twilio: mayor coste pero más documentación.</p></div>
+  </div>
+  <div class="stack-item">
+    <span class="stack-badge alt">WhatsApp QR</span>
+    <div><strong>Librería de conexión multidispositivo (Node.js)</strong>
+    <p>Gestión de sesiones multidispositivo de WhatsApp Web. Credenciales de sesión cifradas con AES-256 y almacenadas en PostgreSQL para persistencia entre reinicios.</p></div>
+  </div>
+  <div class="stack-item">
+    <span class="stack-badge">IA</span>
+    <div><strong>OpenAI GPT-4o-mini</strong>
+    <p>FAQ automático con contexto de la clínica (horario, dirección, servicios). Detección de intención en mensajes libres. Prompt configurable por clínica desde el panel.</p></div>
+  </div>
+  <div class="stack-item">
+    <span class="stack-badge warn">Hosting</span>
+    <div><strong>Railway</strong> (infraestructura ya disponible en Ainertia)
+    <p>Node.js + PostgreSQL + Redis en el mismo proyecto. Auto-deploy desde GitHub. Suficiente para MVP y primeros 100 clientes.</p></div>
+  </div>
+  <div class="stack-item">
+    <span class="stack-badge warn">Frontend</span>
+    <div><strong>React + Vite (o Next.js)</strong>
+    <p>Panel de control por clínica. Autenticación JWT. Rutas: dashboard, citas, mensajes, configuración de WhatsApp (QR o Meta), integración de agenda.</p></div>
+  </div>
+
+  <h3>Variables de entorno</h3>
+  <pre>
+# Base de datos y queue
+DATABASE_URL=postgresql://user:pass@host:5432/dental_auto
+REDIS_URL=redis://localhost:6379
+
+# App
+NODE_ENV=production
+PORT=3000
+JWT_SECRET=secret_muy_largo_min_32chars
+ADMIN_SECRET=clave_acceso_superadmin
+SESSION_ENCRYPTION_KEY=clave_aes256_para_sesiones_qr
+
+# WhatsApp Meta (360dialog) — si alguna clínica usa este modo
+# Cada clínica tiene su propia API key guardada en DB (tabla clinicas.wa_api_key)
+# No hay variables globales de WhatsApp Meta
+
+# Google Calendar OAuth2
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+GOOGLE_REDIRECT_URI=https://api.ainertia.ai/auth/google/callback
+
+# OpenAI (FAQ automático)
+OPENAI_API_KEY=...
+OPENAI_MODEL=gpt-4o-mini
+
+# Email (notificaciones internas a recepción)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=notificaciones@ainertia.ai
+SMTP_PASS=app_password
+  </pre>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 6 — SCHEMA DE BASE DE DATOS
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 6</div>
+  <h2>Schema de base de datos</h2>
+
+  <pre>
+-- ── CLINICAS (un registro por cliente) ─────────────────────────────────────
+CREATE TABLE clinicas (
+  id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  nombre           VARCHAR(200) NOT NULL,
+  plan             VARCHAR(20) DEFAULT 'basico',  -- basico | profesional | avanzado
+  activo           BOOLEAN DEFAULT true,
+
+  -- WhatsApp — modo de conexión
+  wa_provider      VARCHAR(10) DEFAULT 'qr',      -- 'qr' | 'meta'
+  wa_telefono      VARCHAR(20) UNIQUE,             -- número que usan (normalizado E.164)
+  wa_phone_id      VARCHAR(50),                    -- Solo Meta: phone_number_id (360dialog)
+  wa_api_key       TEXT,                           -- Solo Meta: API key cifrada
+
+  -- Integración agenda
+  agenda_method    VARCHAR(20) DEFAULT 'csv',     -- csv | webhook | google_calendar | software
+  google_tokens    TEXT,                           -- access+refresh token (AES-256 cifrado)
+
+  -- Configuración mensajes
+  config           JSONB DEFAULT '{}',             -- mensajes custom, horarios, link Google Maps...
+  google_maps_url  TEXT,
+  created_at       TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ── SESIONES QR (persistencia de conexión) ──────────────────────────────────
+CREATE TABLE wa_sessions (
+  clinica_id    UUID PRIMARY KEY REFERENCES clinicas(id) ON DELETE CASCADE,
+  creds_json    TEXT NOT NULL,        -- sesión multidispositivo cifrada AES-256
+  connected     BOOLEAN DEFAULT false,
+  last_seen     TIMESTAMPTZ,
+  updated_at    TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ── PACIENTES ────────────────────────────────────────────────────────────────
+CREATE TABLE pacientes (
+  id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  clinica_id     UUID REFERENCES clinicas(id) ON DELETE CASCADE,
+  nombre         VARCHAR(100) NOT NULL,
+  telefono_norm  VARCHAR(20) NOT NULL,   -- E.164: +34612345678
+  email          VARCHAR(200),
+  activo         BOOLEAN DEFAULT true,
+  opt_out        BOOLEAN DEFAULT false,  -- paciente solicitó STOP
+  created_at     TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(clinica_id, telefono_norm)
+);
+
+-- ── CITAS ────────────────────────────────────────────────────────────────────
+CREATE TABLE citas (
+  id                    UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  clinica_id            UUID REFERENCES clinicas(id) ON DELETE CASCADE,
+  paciente_id           UUID REFERENCES pacientes(id),
+  fecha_hora            TIMESTAMPTZ NOT NULL,
+  duracion_min          INTEGER DEFAULT 45,
+  tipo                  VARCHAR(100),
+  dentista              VARCHAR(100),
+  estado                VARCHAR(20) DEFAULT 'pendiente',
+    -- pendiente | confirmada | cancelada | completada | no_respondio
+  ext_id                VARCHAR(100),   -- ID en sistema origen (deduplicación)
+  recordatorio_enviado  BOOLEAN DEFAULT false,
+  recordatorio_ts       TIMESTAMPTZ,
+  resena_solicitada     BOOLEAN DEFAULT false,
+  resena_ts             TIMESTAMPTZ,
+  created_at            TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ── CONVERSACIONES ACTIVAS ───────────────────────────────────────────────────
+CREATE TABLE conversaciones (
+  id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  clinica_id     UUID REFERENCES clinicas(id),
+  paciente_id    UUID REFERENCES pacientes(id),
+  telefono       VARCHAR(20) NOT NULL,
+  estado         VARCHAR(30) DEFAULT 'idle',
+    -- idle | esperando_confirmacion | en_cancelacion | en_reagendado | en_faq
+  contexto       JSONB DEFAULT '{}',   -- cita_id, paso del flujo, historial IA...
+  ultimo_msg     TIMESTAMPTZ,
+  created_at     TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ── LOG DE MENSAJES ───────────────────────────────────────────────────────────
+CREATE TABLE mensajes_log (
+  id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  clinica_id     UUID REFERENCES clinicas(id),
+  paciente_id    UUID REFERENCES pacientes(id),
+  direccion      VARCHAR(10) NOT NULL,   -- entrante | saliente
+  contenido      TEXT,
+  tipo           VARCHAR(30),
+    -- recordatorio | confirmacion | cancelacion | resena | faq | sistema
+  wa_msg_id      VARCHAR(100),
+  created_at     TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ── ÍNDICES ───────────────────────────────────────────────────────────────────
+CREATE INDEX idx_citas_clinica_fecha  ON citas(clinica_id, fecha_hora);
+CREATE INDEX idx_citas_recordatorio   ON citas(recordatorio_enviado, fecha_hora) WHERE estado = 'pendiente';
+CREATE INDEX idx_citas_resena         ON citas(resena_solicitada, fecha_hora)    WHERE estado = 'completada';
+CREATE INDEX idx_pacientes_telefono   ON pacientes(clinica_id, telefono_norm);
+CREATE INDEX idx_conv_telefono        ON conversaciones(clinica_id, telefono);
+CREATE INDEX idx_mensajes_clinica_ts  ON mensajes_log(clinica_id, created_at DESC);
+  </pre>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 7 — FLUJOS DE AUTOMATIZACIÓN
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 7</div>
+  <h2>Flujos de automatización (Node.js nativo)</h2>
+
+  <p>Todos los flujos están implementados en Node.js. El <strong>Scheduler Engine</strong> usa <code>node-cron</code> para disparar jobs y <strong>Bull</strong> para ejecutarlos en cola con reintentos.</p>
+
+  <h3>Flujo 1 — Recordatorio y confirmación de cita</h3>
+  <div class="flow">
+<span class="step">TRIGGER:</span> node-cron — cada 5 minutos
+  └── SELECT citas WHERE fecha_hora BETWEEN NOW()+23h AND NOW()+25h
+      AND recordatorio_enviado = false AND estado = 'pendiente'
+
+<span class="action">Para cada cita encontrada → añadir job a Bull queue:</span>
+
+  async function sendReminder(cita) {
+    const clinica   = await getClinida(cita.clinica_id);
+    const paciente  = await getPaciente(cita.paciente_id);
+    const adapter   = createAdapter(clinica, sessionStore);
+    const msg       = buildReminderMsg(clinica.config, cita, paciente);
+
+    await adapter.sendMessage(paciente.telefono_norm, msg);
+    // Meta: usa sendTemplate() con plantilla dental_reminder_es
+    // QR:  usa sendMessage() con texto libre
+
+    await db.query('UPDATE citas SET recordatorio_enviado=true, recordatorio_ts=NOW() WHERE id=$1', [cita.id]);
+    await upsertConversacion(cita.clinica_id, paciente, 'esperando_confirmacion', { cita_id: cita.id });
+  }
+
+<span class="cond">RESPUESTA DEL PACIENTE (webhook entrante):</span>
+  ├── Texto contiene: "sí" / "si" / "confirmo" / "1"
+  │     → cita.estado = 'confirmada'
+  │     → enviar: "¡Perfecto! Te esperamos el {dia} a las {hora} 😊"
+  │     → conversacion.estado = 'idle'
+  ├── Texto contiene: "no" / "cancelo" / "cancelar"
+  │     → cita.estado = 'cancelada'
+  │     → Flujo 2 (notificación cancelación)
+  ├── Texto contiene: "cambiar" / "reagendar" / "otro día"
+  │     → conversacion.estado = 'en_reagendado'
+  │     → Flujo 3 (reagendado)
+  └── Sin respuesta en 4 horas
+        → Un segundo recordatorio (máx. 1 reintento)
+        → Si tampoco responde: cita.estado = 'no_respondio'
+  </div>
+
+  <h3>Flujo 2 — Cancelación y notificación a recepción</h3>
+  <div class="flow">
+<span class="step">TRIGGER:</span> Paciente cancela (botón interactivo o mensaje de texto)
+
+<span class="action">PASO 1:</span> cita.estado = 'cancelada'
+<span class="action">PASO 2:</span> Mensaje al <u>paciente</u>:
+  "Entendido, hemos cancelado tu cita del {dia} a las {hora}.
+   Si quieres pedir una nueva hora, escríbenos aquí 📅"
+<span class="action">PASO 3:</span> Notificación a <u>recepción de la clínica</u>:
+  Modo 1 (WhatsApp) → mensaje al número de recepción configurado:
+    "⚠️ CANCELACIÓN: {paciente} ha cancelado su cita del {dia} {hora}"
+  Modo 2 (Email) → envío SMTP a la dirección de la clínica
+  Modo 3 (Panel) → notificación push en el dashboard en tiempo real
+<span class="action">PASO 4:</span> conversacion.estado = 'idle'
+  </div>
+
+  <h3>Flujo 3 — Solicitud de reseña Google</h3>
+  <div class="flow">
+<span class="step">TRIGGER:</span> node-cron — cada hora
+  └── SELECT citas WHERE estado = 'completada'
+      AND fecha_hora BETWEEN NOW()-4h AND NOW()-2h
+      AND resena_solicitada = false
+
+<span class="action">Para cada cita → job en Bull queue:</span>
+  async function requestReview(cita) {
+    const paciente = await getPaciente(cita.paciente_id);
+    const clinica  = await getClinica(cita.clinica_id);
+    const adapter  = createAdapter(clinica, sessionStore);
+
+    await adapter.sendMessage(paciente.telefono_norm,
+      `${paciente.nombre}, esperamos que hayas quedado satisfecho/a 😊\n` +
+      `Si tienes un momento, nos ayudaría mucho que dejaras una reseña en Google:\n` +
+      `${clinica.google_maps_url}`
+    );
+
+    await db.query('UPDATE citas SET resena_solicitada=true, resena_ts=NOW() WHERE id=$1', [cita.id]);
+  }
+  </div>
+
+  <h3>Flujo 4 — FAQ con IA (planes Profesional y Avanzado)</h3>
+  <div class="flow">
+<span class="step">TRIGGER:</span> Webhook — mensaje entrante sin conversación activa
+
+<span class="action">Detección de intención:</span>
+
+  async function handleIncomingMessage(clinica, telefono, texto) {
+    const conv = await getConversacion(clinica.id, telefono);
+
+    // Si hay conversación activa, enrutar al flujo correspondiente
+    if (conv && conv.estado !== 'idle') return handleActiveFlow(conv, texto);
+
+    // Si es plan Básico: respuesta genérica fija
+    if (clinica.plan === 'basico') {
+      return adapter.sendMessage(telefono, clinica.config.default_reply);
+    }
+
+    // Planes Profesional/Avanzado: FAQ con GPT-4o-mini
+    const systemPrompt = buildClinicaPrompt(clinica); // horario, dirección, servicios, precios orientativos
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: texto }
+      ],
+      max_tokens: 300
+    });
+    return adapter.sendMessage(telefono, response.choices[0].message.content);
+  }
+
+<span class="cond">Reglas de seguridad del prompt IA:</span>
+  - "No menciones precios exactos sin antes confirmar con la clínica"
+  - "Si no sabes la respuesta, indica que llamen al {telefono}"
+  - "Nunca respondas con información médica específica"
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 8 — API INTERNA
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 8</div>
+  <h2>Endpoints de la API</h2>
+
+  <table>
+    <thead><tr><th>Método</th><th>Endpoint</th><th>Descripción</th><th>Auth</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code>/api/v1/auth/login</code></td><td>Login de admin de clínica → JWT</td><td>—</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/v1/clinicas/:id/stats</code></td><td>Métricas: confirmaciones, ausencias, reseñas</td><td>JWT</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/v1/clinicas/:id/citas</code></td><td>Listado citas (filtros: fecha, estado)</td><td>JWT</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/v1/clinicas/:id/mensajes</code></td><td>Log de mensajes enviados/recibidos</td><td>JWT</td></tr>
+      <tr><td><span class="badge badge-yellow">PATCH</span></td><td><code>/api/v1/clinicas/:id/config</code></td><td>Actualizar config (mensajes, horarios, prompt IA)</td><td>JWT</td></tr>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code>/api/v1/clinicas/:id/agenda/import</code></td><td>Importar CSV de agenda</td><td>JWT</td></tr>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code>/api/v1/webhooks/cita</code></td><td>Recibir cita desde agenda externa</td><td>API Key</td></tr>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code>/api/v1/whatsapp/webhook</code></td><td>Webhook Meta (mensajes entrantes)</td><td>HMAC-SHA256</td></tr>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code>/api/v1/clinicas/:id/whatsapp/qr</code></td><td>Iniciar sesión QR (WS para stream del QR)</td><td>JWT</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/v1/clinicas/:id/whatsapp/status</code></td><td>Estado de conexión WhatsApp</td><td>JWT</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/v1/auth/google</code></td><td>Iniciar OAuth2 Google Calendar</td><td>JWT</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/v1/auth/google/callback</code></td><td>Callback OAuth2 Google</td><td>—</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code>/api/v1/admin/clinicas</code></td><td>Listado todos los clientes (superadmin)</td><td>Admin Key</td></tr>
+    </tbody>
+  </table>
+
+  <h3>WebSocket — Stream del QR</h3>
+  <pre>
+// El frontend se conecta al WS para recibir el QR en tiempo real
+ws://api.ainertia.ai/ws/clinicas/:id/whatsapp-qr?token={jwt}
+
+// Eventos del servidor → cliente
+{ "event": "qr",         "data": "data:image/png;base64,..." }  // QR listo
+{ "event": "connected",  "data": { "telefono": "+34612345678" } } // Sesión OK
+{ "event": "error",      "data": { "message": "..." } }
+
+// El frontend muestra el QR en un <img> y escucha "connected" para redirigir al dashboard
+  </pre>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 9 — SEGURIDAD Y RGPD
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 9</div>
+  <h2>Seguridad y cumplimiento RGPD</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Medidas técnicas</h3>
+      <ul>
+        <li>HTTPS obligatorio (TLS 1.3)</li>
+        <li>Passwords con bcrypt (salt rounds: 12)</li>
+        <li>JWT con expiración 8h + refresh token</li>
+        <li>Sesiones QR cifradas con AES-256 en DB</li>
+        <li>API Keys cifradas en DB (nunca en texto claro)</li>
+        <li>Tokens Google Calendar cifrados (AES-256)</li>
+        <li>Webhook Meta verificado con HMAC-SHA256</li>
+        <li>Rate limiting: 100 req/min por clínica</li>
+        <li>Aislamiento total por <code>clinica_id</code></li>
+        <li>Logs sin PII en texto claro</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Obligaciones RGPD</h3>
+      <ul>
+        <li>DPA firmado con cada clínica antes del go-live</li>
+        <li>Pacientes deben haber dado consentimiento explícito</li>
+        <li>Mecanismo de baja (responder STOP) implementado</li>
+        <li>Datos almacenados en servidores dentro de la UE</li>
+        <li>Retención de logs: 90 días (configurable)</li>
+        <li>Derecho al olvido: <code>DELETE /api/v1/pacientes/:id</code></li>
+        <li>Derecho de acceso: exportación CSV de datos del paciente</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-warn">
+    ⚠️ <span><strong>Modo Meta — Templates obligatorios:</strong> fuera de la ventana de 24h de conversación activa, WhatsApp exige usar <em>Message Templates</em> aprobados por Meta para el primer mensaje (ej. recordatorio de cita). Las respuestas del paciente abren la ventana y permiten mensajes libres durante 24h.</span>
+  </div>
+
+  <h3>Template requerido (recordatorio de cita — Meta)</h3>
+  <pre>
+Nombre:    dental_reminder_es
+Idioma:    es_ES
+Categoría: UTILITY
+Estado:    APPROVED (solicitar antes del go-live)
+
+Cuerpo:
+  "Hola {{1}} 👋 Te recordamos tu cita en {{2}} el {{3}} a las {{4}}
+   con {{5}}. ¿Confirmas tu asistencia?
+   Responde SÍ para confirmar, NO para cancelar."
+
+Variables:
+  {{1}} nombre_paciente
+  {{2}} nombre_clinica
+  {{3}} dia_semana + fecha
+  {{4}} hora
+  {{5}} dentista
+
+Nota: en modo QR este template se envía como texto libre (no requiere aprobación Meta).
+  </pre>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 10 — ESTIMACIÓN DE DESARROLLO
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 10</div>
+  <h2>Estimación de desarrollo — MVP (plan Básico + Profesional)</h2>
+
+  <table>
+    <thead><tr><th>Módulo</th><th>Descripción</th><th>Estimación</th><th>Prioridad</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Setup inicial</strong></td><td>Proyecto, DB, Railway, estructura multi-tenant</td><td>1 día</td><td><span class="badge badge-red">Alta</span></td></tr>
+      <tr><td><strong>Schema DB + migraciones</strong></td><td>Tablas, índices, seed de prueba</td><td>0.5 días</td><td><span class="badge badge-red">Alta</span></td></tr>
+      <tr><td><strong>Auth multi-tenant</strong></td><td>Login, JWT, middleware aislamiento por clínica</td><td>1 día</td><td><span class="badge badge-red">Alta</span></td></tr>
+      <tr><td><strong>WhatsApp QRAdapter</strong></td><td>Conexión QR, persistencia sesión, WebSocket stream QR</td><td>2 días</td><td><span class="badge badge-red">Alta</span></td></tr>
+      <tr><td><strong>WhatsApp MetaAdapter</strong></td><td>360dialog API, webhook HMAC, templates</td><td>1.5 días</td><td><span class="badge badge-yellow">Media</span></td></tr>
+      <tr><td><strong>WhatsApp Factory + panel selección</strong></td><td>Patrón Adapter + UI de selección de proveedor</td><td>0.5 días</td><td><span class="badge badge-red">Alta</span></td></tr>
+      <tr><td><strong>Integración CSV</strong></td><td>Import, normalización teléfonos, deduplicación</td><td>1 día</td><td><span class="badge badge-red">Alta</span></td></tr>
+      <tr><td><strong>Integración Google Calendar</strong></td><td>OAuth2, sync bidireccional, mapeo configurable</td><td>2 días</td><td><span class="badge badge-yellow">Media</span></td></tr>
+      <tr><td><strong>Scheduler + Bull Queue</strong></td><td>Cron de recordatorios y reseñas, reintentos</td><td>1 día</td><td><span class="badge badge-red">Alta</span></td></tr>
+      <tr><td><strong>Flujos de conversación</strong></td><td>Máquina de estados: confirmación, cancelación, FAQ</td><td>2 días</td><td><span class="badge badge-red">Alta</span></td></tr>
+      <tr><td><strong>AI FAQ Engine</strong></td><td>GPT-4o-mini con prompt por clínica</td><td>1 día</td><td><span class="badge badge-yellow">Media</span></td></tr>
+      <tr><td><strong>Panel de control</strong></td><td>Dashboard: métricas, citas, config, estado WA</td><td>3 días</td><td><span class="badge badge-yellow">Media</span></td></tr>
+      <tr><td><strong>Templates Meta + aprobación</strong></td><td>Crear y enviar a Meta para revisión</td><td>1-3 días</td><td><span class="badge badge-red">Alta</span></td></tr>
+      <tr><td><strong>Testing + QA piloto</strong></td><td>Pruebas con primera clínica real</td><td>2 días</td><td><span class="badge badge-yellow">Media</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="card" style="margin-top:1.25rem">
+    <h3>⏱️ Total estimado MVP completo: 18-22 días de desarrollo</h3>
+    <p style="margin-top:.5rem;color:var(--muted);font-size:.875rem">Con un desarrollador senior full-stack. Cuello de botella: aprobación de templates por Meta (1-3 días hábiles). El módulo QR es independiente y puede ir a producción sin esperar la aprobación Meta.</p>
+  </div>
+
+  <h3>Orden de desarrollo recomendado</h3>
+  <ol>
+    <li>Setup + DB + Auth multi-tenant</li>
+    <li>WhatsApp QRAdapter (va a producción primero, sin dependencias Meta)</li>
+    <li>Importación CSV de agenda</li>
+    <li>Scheduler + flujo de recordatorio básico</li>
+    <li>Flujos: confirmación, cancelación, reseña</li>
+    <li>Panel de control básico (estado WA, listado citas, log mensajes)</li>
+    <li>Prueba piloto con primera clínica (plan Básico, modo QR)</li>
+    <li>WhatsApp MetaAdapter + plantillas Meta</li>
+    <li>Google Calendar OAuth2</li>
+    <li>AI FAQ Engine</li>
+    <li>Panel avanzado con métricas</li>
+  </ol>
+
+  <div class="alert alert-info">
+    ℹ️ <span><strong>Estrategia de rollout:</strong> lanzar primero con el modo QR (sin trámites Meta), captar las primeras clínicas piloto y refinir el producto. Activar el modo número verificado Meta como upgrade una vez validado el negocio.</span>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     SECCIÓN 11 — CHECKLIST GO-LIVE
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-label">Sección 11</div>
+  <h2>Checklist antes de lanzar con primer cliente</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Infraestructura</h3>
+      <ul>
+        <li>☐ PostgreSQL en producción con backups diarios</li>
+        <li>☐ Redis configurado y persistente</li>
+        <li>☐ Variables de entorno en Railway (nunca en código)</li>
+        <li>☐ Dominio propio con SSL (<code>api.ainertia.ai</code>)</li>
+        <li>☐ Monitorización activa (UptimeRobot o similar)</li>
+        <li>☐ Alertas de error por email/Slack</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>WhatsApp (modo QR)</h3>
+      <ul>
+        <li>☐ QR generado y visible en el panel de la clínica</li>
+        <li>☐ Sesión escaneada y persistida en DB</li>
+        <li>☐ Test de envío y recepción confirmado</li>
+        <li>☐ Reconexión automática tras reinicio probada</li>
+        <li>☐ Alerta de desconexión configurada para la clínica</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>WhatsApp (modo Meta)</h3>
+      <ul>
+        <li>☐ Cuenta Meta Business verificada</li>
+        <li>☐ Número aprobado en 360dialog</li>
+        <li>☐ Template <code>dental_reminder_es</code> aprobado por Meta</li>
+        <li>☐ Webhook 360dialog configurado y verificado</li>
+        <li>☐ Test de envío con número de prueba</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Clínica piloto</h3>
+      <ul>
+        <li>☐ Formato de exportación de agenda acordado</li>
+        <li>☐ Mensajes personalizados con nombre de clínica</li>
+        <li>☐ URL de Google Maps configurada para reseñas</li>
+        <li>☐ Notificación de cancelaciones: WhatsApp o email</li>
+        <li>☐ DPA firmado (RGPD)</li>
+        <li>☐ Prueba completa del ciclo con paciente real</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <span>Ainertia Capital S.L. · CIF B75739656 · Córdoba, España</span>
+  <span>Documento técnico confidencial · v2.0 · Febrero 2026</span>
+</div>
+
+</body>
+</html>
