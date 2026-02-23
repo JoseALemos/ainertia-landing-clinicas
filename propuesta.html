@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Propuesta Comercial — Automatización para Clínicas Dentales | Ainertia Capital</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1a6fb5;
+      --blue-light: #e8f3fc;
+      --teal: #0fa98e;
+      --dark: #1a2332;
+      --text: #2c3e50;
+      --muted: #6b7c93;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      color: var(--text);
+      background: #fff;
+      font-size: 14px;
+      line-height: 1.65;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    /* ── PORTADA ── */
+    .cover {
+      background: linear-gradient(160deg, #1a2332 0%, #1e3a5f 100%);
+      color: #fff;
+      padding: 70px 60px 60px;
+      min-height: 280px;
+      position: relative;
+      page-break-after: always;
+    }
+    .cover-logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 50px; }
+    .cover-logo span { color: var(--teal); }
+    .cover-tag {
+      display: inline-block;
+      background: rgba(15,169,142,.2); border: 1px solid rgba(15,169,142,.4);
+      color: var(--teal); border-radius: 100px;
+      padding: 0.25rem 0.875rem; font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.25rem;
+    }
+    .cover h1 { font-size: 2.4rem; font-weight: 900; line-height: 1.15; margin-bottom: 1rem; letter-spacing: -0.5px; }
+    .cover h1 em { color: var(--teal); font-style: normal; }
+    .cover-sub { font-size: 1rem; color: rgba(255,255,255,.65); max-width: 520px; margin-bottom: 50px; }
+    .cover-meta {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+      padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .cover-meta-item { font-size: 0.75rem; color: rgba(255,255,255,.5); }
+    .cover-meta-item strong { display: block; font-size: 0.875rem; color: rgba(255,255,255,.85); font-weight: 600; margin-bottom: .1rem; }
+
+    /* ── SECCIONES ── */
+    .page { padding: 50px 60px; }
+    .page + .page { border-top: 2px solid var(--border); }
+
+    .section-label {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.2px; color: var(--teal); margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-size: 1.6rem; font-weight: 800; color: var(--dark);
+      line-height: 1.2; margin-bottom: 0.875rem; letter-spacing: -0.3px;
+    }
+    h3 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    p { margin-bottom: 0.875rem; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── PAIN POINTS ── */
+    .pain-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+    .pain-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem;
+      border-top: 3px solid var(--blue-light);
+    }
+    .pain-card .icon { font-size: 1.4rem; margin-bottom: 0.625rem; }
+    .pain-card h3 { font-size: 0.875rem; margin-bottom: 0.375rem; }
+    .pain-card p { font-size: 0.8rem; color: var(--muted); margin: 0; line-height: 1.5; }
+
+    /* ── SOLUCIÓN ── */
+    .sol-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    .sol-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 1.25rem; background: var(--bg); border-radius: 10px; border: 1px solid var(--border); }
+    .sol-num { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 800; font-size: 0.875rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sol-item h3 { font-size: 0.9rem; margin-bottom: 0.25rem; }
+    .sol-item p { font-size: 0.8rem; color: var(--muted); margin: 0; }
+
+    /* ── RESULTADOS ── */
+    .metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .metric {
+      background: linear-gradient(135deg, var(--dark), #1e3a5f);
+      color: #fff; border-radius: 12px; padding: 1.5rem; text-align: center;
+    }
+    .metric-num { font-size: 2.2rem; font-weight: 900; color: var(--teal); line-height: 1; margin-bottom: 0.4rem; }
+    .metric-label { font-size: 0.78rem; color: rgba(255,255,255,.65); line-height: 1.4; }
+
+    /* ── PROCESO ── */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.875rem; margin-top: 1.5rem; }
+    .step { text-align: center; padding: 1rem 0.75rem; }
+    .step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--blue-light); color: var(--blue); font-weight: 800; font-size: 1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; }
+    .step h3 { font-size: 0.8rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .step p { font-size: 0.75rem; color: var(--muted); margin: 0; }
+    .step-connector { display: flex; align-items: center; justify-content: center; padding-top: 1.25rem; color: var(--border); font-size: 1.2rem; }
+
+    /* ── PRECIOS ── */
+    .pricing { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+    .price-card {
+      border: 1.5px solid var(--border); border-radius: 14px;
+      padding: 1.5rem; position: relative; transition: all .2s;
+    }
+    .price-card.featured {
+      border-color: var(--blue); background: linear-gradient(160deg, #f0f7ff, #e8f6f3);
+    }
+    .price-badge {
+      position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+      background: var(--blue); color: #fff; font-size: 0.65rem; font-weight: 700;
+      padding: 0.2rem 0.75rem; border-radius: 100px; text-transform: uppercase; letter-spacing: .5px;
+      white-space: nowrap;
+    }
+    .price-name { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin-bottom: 0.5rem; }
+    .price-amount { font-size: 2rem; font-weight: 900; color: var(--dark); line-height: 1; margin-bottom: 0.2rem; }
+    .price-amount span { font-size: 0.875rem; font-weight: 500; color: var(--muted); }
+    .price-desc { font-size: 0.78rem; color: var(--muted); margin: 0.625rem 0 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .price-features li { font-size: 0.78rem; color: var(--text); display: flex; gap: 0.5rem; }
+    .price-features li::before { content: "✓"; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+
+    /* ── POR QUÉ AINERTIA ── */
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .why-item { display: flex; gap: 0.875rem; align-items: flex-start; padding: .875rem 1rem; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
+    .why-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .why-item h3 { font-size: 0.875rem; margin-bottom: 0.2rem; }
+    .why-item p { font-size: 0.78rem; color: var(--muted); margin: 0; }
+
+    /* ── SIGUIENTES PASOS / CTA ── */
+    .cta-box {
+      background: linear-gradient(135deg, var(--dark), #1e3a5f);
+      color: #fff; border-radius: 16px; padding: 2.5rem; text-align: center; margin-top: 1.5rem;
+    }
+    .cta-box h2 { color: #fff; font-size: 1.4rem; margin-bottom: 0.625rem; }
+    .cta-box p { color: rgba(255,255,255,.65); font-size: 0.875rem; margin-bottom: 1.5rem; }
+    .cta-steps { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .cta-step { text-align: center; }
+    .cta-step-num { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.25); color: #fff; font-weight: 800; font-size: 0.875rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem; }
+    .cta-step p { font-size: 0.78rem; color: rgba(255,255,255,.7); margin: 0; }
+    .cta-contact { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .contact-item { font-size: 0.82rem; color: rgba(255,255,255,.8); }
+    .contact-item strong { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: .5px; color: var(--teal); margin-bottom: .15rem; }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      padding: 1.5rem 60px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.72rem; color: var(--muted);
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { max-width: 100%; }
+      .cover { page-break-after: always; }
+      .page { page-break-inside: avoid; }
+      @page { margin: 0; size: A4; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── PORTADA ── -->
+<div class="cover">
+  <div class="cover-logo">Ainertia<span>.</span></div>
+  <div class="cover-tag">Propuesta Comercial</div>
+  <h1>Automatización inteligente<br/>para <em>clínicas dentales</em></h1>
+  <p class="cover-sub">Menos ausencias, más reseñas y una agenda siempre al día — sin que tu equipo levante el teléfono.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>Preparado por</strong>Ainertia Capital S.L.</div>
+    <div class="cover-meta-item"><strong>Contacto</strong>comercial@ainertia.ai</div>
+    <div class="cover-meta-item"><strong>WhatsApp</strong>+34 613 244 738</div>
+    <div class="cover-meta-item"><strong>Fecha</strong>Febrero 2026</div>
+  </div>
+</div>
+
+<!-- ── 1. EL PROBLEMA ── -->
+<div class="page">
+  <div class="section-label">El reto</div>
+  <h2>Lo que consume tiempo en tu clínica cada semana</h2>
+  <p>Gestionar una clínica dental es mucho más que tratar pacientes. Tu equipo dedica horas a tareas administrativas repetitivas que, además, no siempre dan resultado.</p>
+
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="icon">📞</div>
+      <h3>Llamadas que no contestan</h3>
+      <p>Recordar citas manualmente ocupa horas semanales y aun así los pacientes no siempre responden a tiempo.</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">🪑</div>
+      <h3>Huecos vacíos en la agenda</h3>
+      <p>Una ausencia de última hora son 45-60 minutos perdidos. Sin confirmación previa, es imposible de evitar.</p>
+    </div>
+    <div class="pain-card">
+      <div class="icon">⭐</div>
+      <h3>Pocas reseñas en Google</h3>
+      <p>Los pacientes salen satisfechos pero raramente dejan reseña. La clínica pierde visibilidad frente a la competencia.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── 2. LA SOLUCIÓN ── -->
+<div class="page">
+  <div class="section-label">La solución</div>
+  <h2>Un asistente que trabaja por ti, 24 horas al día</h2>
+  <p>Conectado directamente a tu agenda, actúa en el momento justo. Sin errores, sin olvidos, sin supervisión constante.</p>
+
+  <div class="sol-list">
+    <div class="sol-item">
+      <div class="sol-num">1</div>
+      <div>
+        <h3>Recordatorios automáticos por WhatsApp</h3>
+        <p>24 horas antes de cada cita, el paciente recibe un mensaje personalizado con confirmación en un clic. Sin llamadas, sin burocracia.</p>
+      </div>
+    </div>
+    <div class="sol-item">
+      <div class="sol-num">2</div>
+      <div>
+        <h3>Gestión de cancelaciones y reagendados</h3>
+        <p>El paciente cancela directamente por WhatsApp. El hueco se libera al instante y tu equipo recibe aviso automático.</p>
+      </div>
+    </div>
+    <div class="sol-item">
+      <div class="sol-num">3</div>
+      <div>
+        <h3>Solicitud de reseñas en el momento justo</h3>
+        <p>3 horas después de la visita, el asistente envía un mensaje pidiendo reseña en Google. Cuando la satisfacción está en su punto más alto.</p>
+      </div>
+    </div>
+    <div class="sol-item">
+      <div class="sol-num">4</div>
+      <div>
+        <h3>Respuesta automática a preguntas frecuentes</h3>
+        <p>Horarios, precios orientativos, ubicación, seguros aceptados. El asistente responde al instante sin ocupar a tu recepcionista.</p>
+      </div>
+    </div>
+    <div class="sol-item">
+      <div class="sol-num">5</div>
+      <div>
+        <h3>Panel de control simple y claro</h3>
+        <p>Consultas confirmadas, bajas recibidas, reseñas obtenidas esta semana. Todo en un vistazo, sin formación técnica necesaria.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 3. RESULTADOS ── -->
+<div class="page">
+  <div class="section-label">Resultados reales</div>
+  <h2>Números que hablan por sí solos</h2>
+  <p>Basados en clínicas dentales en España que ya utilizan automatización de comunicación por WhatsApp.</p>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-num">−45%</div>
+      <div class="metric-label">Reducción de ausencias y cancelaciones de última hora</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">3×</div>
+      <div class="metric-label">Más reseñas en Google en los primeros 60 días</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">6h</div>
+      <div class="metric-label">Horas semanales liberadas del equipo de recepción</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 4. PROCESO DE IMPLEMENTACIÓN ── -->
+<div class="page">
+  <div class="section-label">Implementación</div>
+  <h2>En marcha en menos de 48 horas</h2>
+  <p>Sin instalar software nuevo, sin cambiar tu sistema de gestión. Nos adaptamos a lo que ya tienes.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Reunión inicial</h3>
+      <p>30 minutos para entender tu clínica, agenda y objetivos.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Configuración</h3>
+      <p>Adaptamos mensajes, horarios y flujos a tu imagen de marca.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Prueba piloto</h3>
+      <p>Lo probamos juntos con pacientes reales antes del lanzamiento.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>En producción</h3>
+      <p>Tu asistente trabaja solo. Soporte continuo incluido.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── 5. TARIFAS ── -->
+<div class="page">
+  <div class="section-label">Tarifas</div>
+  <h2>Planes adaptados al tamaño de tu clínica</h2>
+  <p>Sin permanencia. Sin letra pequeña. Puedes cancelar cuando quieras.</p>
+
+  <div class="pricing">
+    <div class="price-card">
+      <div class="price-name">Básico</div>
+      <div class="price-amount">149€ <span>/mes</span></div>
+      <p class="price-desc">Para clínicas de 1 dentista o con volumen bajo de citas.</p>
+      <ul class="price-features">
+        <li>Recordatorios automáticos</li>
+        <li>Confirmación de cita</li>
+        <li>Hasta 200 mensajes/mes</li>
+        <li>Panel de control</li>
+        <li>Soporte por email</li>
+      </ul>
+    </div>
+
+    <div class="price-card featured">
+      <div class="price-badge">Más popular</div>
+      <div class="price-name">Profesional</div>
+      <div class="price-amount">249€ <span>/mes</span></div>
+      <p class="price-desc">Para clínicas de 2-4 dentistas. El más contratado.</p>
+      <ul class="price-features">
+        <li>Todo lo del plan Básico</li>
+        <li>Gestión de cancelaciones</li>
+        <li>Solicitud de reseñas Google</li>
+        <li>Respuesta a preguntas frecuentes</li>
+        <li>Hasta 600 mensajes/mes</li>
+        <li>Soporte prioritario (WhatsApp)</li>
+      </ul>
+    </div>
+
+    <div class="price-card">
+      <div class="price-name">Clínica avanzada</div>
+      <div class="price-amount">399€ <span>/mes</span></div>
+      <p class="price-desc">Para clínicas con múltiples sedes o alto volumen.</p>
+      <ul class="price-features">
+        <li>Todo lo del plan Profesional</li>
+        <li>Mensajes ilimitados</li>
+        <li>Integración con software de gestión</li>
+        <li>Campañas de reactivación de pacientes</li>
+        <li>Informes mensuales</li>
+        <li>Account manager dedicado</li>
+      </ul>
+    </div>
+  </div>
+
+  <p style="margin-top:1.25rem;font-size:.8rem;color:var(--muted);text-align:center">
+    ✱ Todos los planes incluyen instalación y formación inicial gratuita · Primer mes sin compromiso
+  </p>
+</div>
+
+<!-- ── 6. POR QUÉ AINERTIA ── -->
+<div class="page">
+  <div class="section-label">¿Por qué Ainertia?</div>
+  <h2>Tecnología real, acompañamiento cercano</h2>
+  <p>No somos una plataforma genérica. Somos un equipo técnico especializado en automatización con IA para negocios en España.</p>
+
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-icon">🇪🇸</div>
+      <div>
+        <h3>Equipo español, soporte en español</h3>
+        <p>Basados en Córdoba. Entendemos el contexto y las necesidades del sector sanitario en España.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">⚡</div>
+      <div>
+        <h3>Implementación rápida</h3>
+        <p>En menos de 48 horas tu asistente está operativo. Sin proyectos largos ni consultorías eternas.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🔧</div>
+      <div>
+        <h3>Adaptado a tu clínica</h3>
+        <p>Configuramos los mensajes, el tono y los flujos exactamente como los quieres. No es un producto enlatado.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">📊</div>
+      <div>
+        <h3>Resultados medibles</h3>
+        <p>Recibes un informe mensual con los indicadores clave: confirmaciones, ausencias evitadas, reseñas obtenidas.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🔒</div>
+      <div>
+        <h3>Cumplimiento RGPD</h3>
+        <p>Gestionamos los datos de tus pacientes conforme a la normativa europea de protección de datos.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🤝</div>
+      <div>
+        <h3>Sin permanencia</h3>
+        <p>Confiamos en los resultados. Si no ves el valor en el primer mes, puedes cancelar sin coste.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 7. SIGUIENTES PASOS ── -->
+<div class="page">
+  <div class="section-label">Próximos pasos</div>
+  <h2>Empezar es más fácil de lo que parece</h2>
+  <p>Una conversación de 20 minutos es suficiente para saber si tiene sentido para tu clínica. Sin compromiso.</p>
+
+  <div class="cta-box">
+    <h2>¿Hablamos esta semana?</h2>
+    <p>Cuéntanos cómo funciona tu clínica y te mostramos en vivo cómo quedaría el asistente con tu nombre y tu estilo.</p>
+    <div class="cta-steps">
+      <div class="cta-step">
+        <div class="cta-step-num">1</div>
+        <p>Nos contactas</p>
+      </div>
+      <div class="cta-step">
+        <div class="cta-step-num">2</div>
+        <p>Demo en 20 min</p>
+      </div>
+      <div class="cta-step">
+        <div class="cta-step-num">3</div>
+        <p>Piloto gratis 30 días</p>
+      </div>
+    </div>
+    <div class="cta-contact">
+      <div class="contact-item"><strong>Email</strong>comercial@ainertia.ai</div>
+      <div class="contact-item"><strong>WhatsApp</strong>+34 613 244 738</div>
+      <div class="contact-item"><strong>Web</strong>ainertia.ai</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="doc-footer">
+  <span>© 2026 Ainertia Capital S.L. · Córdoba, España · CIF: pendiente</span>
+  <span>Documento confidencial · Uso exclusivo del destinatario</span>
+</div>
+
+</body>
+</html>
