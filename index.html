@@ -4,491 +4,491 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Automatización para Clínicas Dentales | Ainertia Capital</title>
-  <meta name="description" content="Reduce ausencias un 45% y consigue más reseñas en Google sin levantar el teléfono. Asistente IA por WhatsApp para clínicas dentales." />
+  <meta name="description" content="Menos ausencias, más reseñas y una agenda siempre al día. Solución de IA para clínicas dentales que quieren crecer sin aumentar la carga de trabajo." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green: #00C896;
-      --green-dark: #009e78;
-      --dark: #0D0D0D;
-      --gray: #1A1A2E;
-      --gray-light: #f4f6f9;
-      --text: #333;
-      --muted: #666;
-      --radius: 12px;
-      --shadow: 0 4px 24px rgba(0,0,0,0.10);
+      --blue: #1a6fb5;
+      --blue-light: #e8f3fc;
+      --blue-mid: #2d88d4;
+      --teal: #0fa98e;
+      --teal-light: #e6f7f4;
+      --dark: #1a2332;
+      --text: #2c3e50;
+      --muted: #6b7c93;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --radius: 14px;
+      --shadow-sm: 0 2px 12px rgba(0,0,0,0.06);
+      --shadow: 0 8px 32px rgba(0,0,0,0.10);
     }
 
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       color: var(--text);
-      background: #fff;
-      line-height: 1.6;
+      background: var(--white);
+      line-height: 1.65;
     }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2rem;
-      border-bottom: 1px solid #eee;
-      position: sticky;
-      top: 0;
-      background: #fff;
-      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: var(--shadow-sm);
     }
-    .logo { font-weight: 800; font-size: 1.2rem; color: var(--dark); letter-spacing: -0.5px; }
-    .logo span { color: var(--green); }
-    nav a.cta-nav {
-      background: var(--green);
-      color: #fff;
-      padding: 0.55rem 1.4rem;
-      border-radius: 100px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.9rem;
+    .logo { font-weight: 800; font-size: 1.15rem; color: var(--dark); letter-spacing: -0.3px; }
+    .logo span { color: var(--teal); }
+    .nav-tagline { font-size: 0.78rem; color: var(--muted); margin-left: 0.5rem; }
+    .cta-nav {
+      background: var(--blue); color: #fff;
+      padding: 0.6rem 1.5rem; border-radius: 100px;
+      text-decoration: none; font-weight: 700; font-size: 0.88rem;
       transition: background 0.2s;
     }
-    nav a.cta-nav:hover { background: var(--green-dark); }
+    .cta-nav:hover { background: var(--blue-mid); }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero {
-      background: linear-gradient(135deg, #0D0D0D 0%, #1A1A2E 100%);
-      color: #fff;
-      padding: 5rem 2rem 4rem;
+      background: linear-gradient(160deg, #f0f7ff 0%, #e8f6f3 100%);
+      padding: 5rem 2rem 4.5rem;
       text-align: center;
+      border-bottom: 1px solid var(--border);
     }
-    .hero .tag {
-      display: inline-block;
-      background: rgba(0,200,150,0.15);
-      color: var(--green);
-      border: 1px solid rgba(0,200,150,0.3);
-      padding: 0.3rem 1rem;
-      border-radius: 100px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 100px; padding: 0.35rem 1rem;
+      font-size: 0.78rem; font-weight: 600; color: var(--blue);
+      margin-bottom: 1.75rem; box-shadow: var(--shadow-sm);
     }
+    .hero-eyebrow::before { content: "🦷"; font-size: 0.9rem; }
     .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 1.2rem;
-      max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: clamp(1.9rem, 4.5vw, 3rem);
+      font-weight: 900; line-height: 1.2;
+      color: var(--dark); max-width: 780px;
+      margin: 0 auto 1.25rem;
+      letter-spacing: -0.5px;
     }
-    .hero h1 em { color: var(--green); font-style: normal; }
-    .hero p {
-      font-size: 1.15rem;
-      color: rgba(255,255,255,0.75);
-      max-width: 580px;
-      margin: 0 auto 2rem;
+    .hero h1 em { color: var(--blue); font-style: normal; }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted);
+      max-width: 560px; margin: 0 auto 2.25rem;
     }
-    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
     .btn-primary {
-      background: var(--green);
-      color: #fff;
-      padding: 1rem 2.2rem;
-      border-radius: 100px;
-      font-weight: 800;
-      font-size: 1rem;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
+      background: var(--blue); color: #fff;
+      padding: 0.95rem 2.2rem; border-radius: 100px;
+      font-weight: 800; font-size: 1rem; text-decoration: none;
+      border: none; cursor: pointer;
       transition: background 0.2s, transform 0.1s;
-      display: inline-block;
+      display: inline-block; box-shadow: 0 4px 18px rgba(26,111,181,0.3);
     }
-    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--blue-mid); transform: translateY(-1px); }
     .btn-secondary {
-      background: transparent;
-      color: #fff;
-      padding: 1rem 2.2rem;
-      border-radius: 100px;
-      font-weight: 700;
-      font-size: 1rem;
-      text-decoration: none;
-      border: 2px solid rgba(255,255,255,0.3);
-      transition: border-color 0.2s;
-      display: inline-block;
+      background: var(--white); color: var(--blue);
+      padding: 0.95rem 2.2rem; border-radius: 100px;
+      font-weight: 700; font-size: 1rem; text-decoration: none;
+      border: 2px solid var(--blue); transition: all 0.2s; display: inline-block;
     }
-    .btn-secondary:hover { border-color: rgba(255,255,255,0.7); }
+    .btn-secondary:hover { background: var(--blue-light); }
 
-    /* SOCIAL PROOF BAR */
-    .proof-bar {
-      background: var(--green);
-      padding: 1rem 2rem;
-      text-align: center;
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.3px;
-    }
-    .proof-bar span { margin: 0 1.5rem; }
-
-    /* PAIN SECTION */
-    .section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
-    .section-center { text-align: center; }
-    .label {
-      display: inline-block;
-      color: var(--green);
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-    h2 {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 900;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-    .subtitle { color: var(--muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 3rem; }
-
-    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .pain-card {
-      background: #fff5f5;
-      border: 1px solid #ffd5d5;
-      border-radius: var(--radius);
-      padding: 1.5rem;
-    }
-    .pain-card .icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
-    .pain-card h3 { font-weight: 800; font-size: 1rem; margin-bottom: 0.5rem; color: #c0392b; }
-    .pain-card p { font-size: 0.9rem; color: var(--muted); }
-
-    /* HOW IT WORKS */
-    .how-bg { background: var(--gray-light); }
-    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 3rem; }
-    .step { text-align: center; }
-    .step-num {
-      width: 52px; height: 52px;
-      background: var(--green);
-      color: #fff;
-      border-radius: 50%;
+    /* Trust badges en el hero */
+    .hero-trust {
       display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 1.2rem;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--muted); }
+    .trust-item strong { color: var(--dark); }
+    .trust-dot { width: 4px; height: 4px; background: var(--border); border-radius: 50%; }
+
+    /* ── SECCIONES GENERALES ── */
+    .section { padding: 4.5rem 2rem; }
+    .section-inner { max-width: 1080px; margin: 0 auto; }
+    .section-center { text-align: center; }
+    .section-label {
+      display: inline-block; color: var(--teal);
+      font-weight: 700; font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; color: var(--dark);
+      line-height: 1.25; margin-bottom: 1rem;
+      letter-spacing: -0.3px;
+    }
+    .section-sub { font-size: 1.05rem; color: var(--muted); max-width: 580px; margin: 0 auto; }
+
+    /* ── EMPATÍA ── */
+    .empathy { background: var(--white); border-top: 1px solid var(--border); }
+    .empathy-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .empathy-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+      border-left: 4px solid var(--blue-light);
+      transition: border-left-color 0.2s;
+    }
+    .empathy-card:hover { border-left-color: var(--blue); }
+    .empathy-card .icon { font-size: 1.6rem; margin-bottom: 0.75rem; }
+    .empathy-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem; }
+    .empathy-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── SOLUCIÓN ── */
+    .solution { background: var(--bg); }
+    .solution-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2.5rem; align-items: center; margin-top: 2rem;
+    }
+    .solution-visual {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+    .chat-bubble {
+      background: var(--blue-light); border-radius: 14px 14px 14px 4px;
+      padding: 0.875rem 1.1rem; margin-bottom: 0.75rem;
+      font-size: 0.875rem; color: var(--text); max-width: 85%;
+    }
+    .chat-bubble.bot {
+      background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+      color: #fff; border-radius: 14px 14px 4px 14px;
+      margin-left: auto;
+    }
+    .chat-meta { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+    .chat-meta.right { text-align: right; }
+    .solution-points { display: flex; flex-direction: column; gap: 1.25rem; }
+    .sol-point { display: flex; gap: 1rem; align-items: flex-start; }
+    .sol-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--blue-light); display: flex; align-items: center;
+      justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .sol-point h4 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 0.25rem; }
+    .sol-point p { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── RESULTADOS ── */
+    .results { background: linear-gradient(135deg, var(--dark) 0%, #1e3a5f 100%); color: #fff; }
+    .results .section-label { color: var(--teal); }
+    .results .section-title { color: #fff; }
+    .results .section-sub { color: rgba(255,255,255,0.65); }
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .metric-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius); padding: 2rem 1.5rem; text-align: center;
+    }
+    .metric-number {
+      font-size: 2.8rem; font-weight: 900; color: var(--teal);
+      line-height: 1; margin-bottom: 0.5rem;
+    }
+    .metric-label { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+    /* ── CÓMO FUNCIONA ── */
+    .how { background: var(--white); }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .step { text-align: center; padding: 1.5rem 1rem; }
+    .step-num {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--blue-light); color: var(--blue);
+      font-weight: 900; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1rem;
     }
-    .step h3 { font-weight: 800; margin-bottom: 0.5rem; }
-    .step p { font-size: 0.9rem; color: var(--muted); }
+    .step h3 { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 0.4rem; }
+    .step p { font-size: 0.82rem; color: var(--muted); }
+    .step-arrow { display: flex; align-items: center; justify-content: center; color: var(--border); font-size: 1.5rem; padding-top: 2rem; }
 
-    /* RESULTS */
-    .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-    .result-card {
-      text-align: center;
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 2rem 1.5rem;
-      box-shadow: var(--shadow);
-      border-top: 4px solid var(--green);
+    /* ── TESTIMONIAL ── */
+    .testimonial { background: var(--bg); }
+    .testi-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.5rem; max-width: 680px;
+      margin: 2rem auto 0; box-shadow: var(--shadow-sm); text-align: center;
     }
-    .result-card .number { font-size: 2.8rem; font-weight: 900; color: var(--green); line-height: 1; }
-    .result-card .desc { font-size: 0.9rem; color: var(--muted); margin-top: 0.5rem; }
+    .testi-stars { color: #f5a623; font-size: 1.2rem; margin-bottom: 1.25rem; letter-spacing: 2px; }
+    .testi-quote { font-size: 1.1rem; line-height: 1.65; color: var(--text); font-style: italic; margin-bottom: 1.5rem; }
+    .testi-author { font-size: 0.875rem; font-weight: 700; color: var(--dark); }
+    .testi-role { font-size: 0.8rem; color: var(--muted); }
 
-    /* TESTIMONIAL */
-    .testimonial {
-      background: var(--dark);
-      color: #fff;
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      margin: 3rem auto 0;
-      max-width: 700px;
-      text-align: center;
+    /* ── PRICING / CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, #f0f7ff 0%, #e8f6f3 100%);
+      text-align: center; padding: 5rem 2rem;
+      border-top: 1px solid var(--border);
     }
-    .testimonial blockquote { font-size: 1.15rem; font-style: italic; line-height: 1.7; margin-bottom: 1.5rem; color: rgba(255,255,255,0.85); }
-    .testimonial cite { font-size: 0.85rem; color: var(--green); font-weight: 700; font-style: normal; }
-
-    /* FORM */
-    .form-section {
-      background: linear-gradient(135deg, #0D0D0D, #1A1A2E);
-      padding: 5rem 2rem;
+    .cta-section .section-title { max-width: 620px; margin: 0 auto 1rem; }
+    .cta-section .section-sub { margin-bottom: 2.5rem; }
+    .cta-form {
+      display: flex; gap: 0.75rem; justify-content: center;
+      flex-wrap: wrap; max-width: 520px; margin: 0 auto;
     }
-    .form-wrap {
-      max-width: 540px;
-      margin: 0 auto;
-      text-align: center;
-      color: #fff;
-    }
-    .form-wrap h2 { color: #fff; margin-bottom: 0.5rem; }
-    .form-wrap p { color: rgba(255,255,255,0.65); margin-bottom: 2rem; }
-
-    form { text-align: left; }
-    .form-group { margin-bottom: 1.2rem; }
-    label { display: block; font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.7); margin-bottom: 0.4rem; }
-    input, select, textarea {
-      width: 100%;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 8px;
-      padding: 0.85rem 1rem;
-      color: #fff;
-      font-size: 0.95rem;
-      outline: none;
+    .cta-form input {
+      flex: 1; min-width: 220px; padding: 0.9rem 1.25rem;
+      border: 1.5px solid var(--border); border-radius: 100px;
+      font-size: 0.95rem; color: var(--text); outline: none;
       transition: border-color 0.2s;
-      font-family: inherit;
     }
-    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
-    input:focus, select:focus, textarea:focus { border-color: var(--green); }
-    select { appearance: none; cursor: pointer; }
-    select option { background: #1A1A2E; }
-    textarea { resize: vertical; min-height: 100px; }
-    .form-submit {
-      width: 100%;
-      background: var(--green);
-      color: #fff;
-      border: none;
-      border-radius: 100px;
-      padding: 1.1rem;
-      font-weight: 800;
-      font-size: 1.05rem;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      margin-top: 0.5rem;
+    .cta-form input:focus { border-color: var(--blue); }
+    .cta-note { font-size: 0.78rem; color: var(--muted); margin-top: 0.875rem; }
+    .cta-guarantee {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 100px; padding: 0.4rem 1rem;
+      font-size: 0.78rem; color: var(--muted);
+      margin-top: 1.5rem; box-shadow: var(--shadow-sm);
     }
-    .form-submit:hover { background: var(--green-dark); transform: translateY(-1px); }
-    .form-note { text-align: center; font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-top: 1rem; }
 
-    /* FAQ */
-    .faq-list { max-width: 700px; margin: 2rem auto 0; }
-    .faq-item { border-bottom: 1px solid #eee; padding: 1.25rem 0; }
-    .faq-item summary { font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
-    .faq-item summary::after { content: '+'; font-size: 1.3rem; color: var(--green); }
-    details[open] summary::after { content: '–'; }
-    .faq-item p { margin-top: 0.75rem; color: var(--muted); font-size: 0.95rem; }
-
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer {
-      background: var(--dark);
-      color: rgba(255,255,255,0.5);
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.85rem;
+      background: var(--dark); color: rgba(255,255,255,0.5);
+      padding: 2rem; text-align: center; font-size: 0.82rem;
     }
-    footer a { color: var(--green); text-decoration: none; }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer a:hover { color: #fff; }
 
-    /* WHATSAPP FLOAT */
-    .wa-btn {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      background: #25D366;
-      color: #fff;
-      width: 58px; height: 58px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.6rem;
-      text-decoration: none;
-      box-shadow: 0 4px 16px rgba(37,211,102,0.4);
-      transition: transform 0.2s;
-      z-index: 999;
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .empathy-grid { grid-template-columns: 1fr 1fr; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .solution-grid { grid-template-columns: 1fr; }
     }
-    .wa-btn:hover { transform: scale(1.1); }
-
     @media (max-width: 600px) {
-      nav { padding: 1rem; }
-      .hero { padding: 3.5rem 1rem 3rem; }
-      .section { padding: 3rem 1rem; }
+      .empathy-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .hero { padding: 3.5rem 1.25rem 3rem; }
+      .section { padding: 3rem 1.25rem; }
+      .hero-trust { gap: 1rem; }
+      .trust-dot { display: none; }
+      .nav-tagline { display: none; }
+      nav { padding: 0.875rem 1.25rem; }
+    }
+    @media (max-width: 400px) {
+      .steps { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ── NAV ── -->
 <nav>
-  <div class="logo">Ainertia<span>.</span>AI</div>
-  <a href="#contacto" class="cta-nav">Quiero una demo →</a>
+  <div style="display:flex;align-items:center;gap:.5rem">
+    <div class="logo">Ainertia<span>.</span></div>
+    <span class="nav-tagline">Soluciones IA para clínicas</span>
+  </div>
+  <a href="#contacto" class="cta-nav">Solicitar demostración</a>
 </nav>
 
-<!-- HERO -->
+<!-- ── HERO ── -->
 <section class="hero">
-  <div class="tag">🦷 Para clínicas dentales</div>
-  <h1>Tu clínica llena.<br><em>Sin llamar. Sin olvidar. Sin ausencias.</em></h1>
-  <p>Un asistente de IA por WhatsApp que recuerda citas, confirma, reagenda y pide reseñas en Google — todo automático.</p>
+  <div class="hero-eyebrow">Asistente IA para clínicas dentales</div>
+  <h1>Tu clínica, siempre <em>atendida</em>.<br/>Tu equipo, siempre <em>libre</em>.</h1>
+  <p class="hero-sub">
+    Automatiza recordatorios, confirmaciones y reseñas sin que tu equipo tenga que levantar el teléfono. Más tiempo para lo que de verdad importa: tus pacientes.
+  </p>
   <div class="hero-ctas">
-    <a href="#contacto" class="btn-primary">Quiero verlo en acción →</a>
-    <a href="#como-funciona" class="btn-secondary">¿Cómo funciona?</a>
+    <a href="#contacto" class="btn-primary">Ver cómo funciona →</a>
+    <a href="#resultados" class="btn-secondary">Ver resultados reales</a>
+  </div>
+  <div class="hero-trust">
+    <div class="trust-item">✅ <strong>Sin permanencia</strong></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">✅ <strong>Instalación en 24h</strong></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">✅ <strong>Soporte en español</strong></div>
+    <div class="trust-dot"></div>
+    <div class="trust-item">✅ <strong>Funciona con WhatsApp</strong></div>
   </div>
 </section>
 
-<!-- PROOF BAR -->
-<div class="proof-bar">
-  <span>✅ Activo en clínicas de Córdoba y Andalucía</span>
-  <span>📉 Hasta 45% menos ausencias</span>
-  <span>⭐ +20% más reseñas en Google</span>
-  <span>🚀 En marcha en menos de 1 semana</span>
-</div>
-
-<!-- PAIN -->
-<div class="section section-center">
-  <span class="label">El problema</span>
-  <h2>¿Te suena alguno de estos problemas?</h2>
-  <p class="subtitle">Son los más comunes en clínicas dentales. Y todos tienen solución automatizada.</p>
-  <div class="pain-grid">
-    <div class="pain-card">
-      <div class="icon">📞</div>
-      <h3>Pacientes que no aparecen</h3>
-      <p>Sin recordatorio, entre el 10% y 20% de las citas se pierden. Eso son horas vacías y dinero que no entra.</p>
+<!-- ── EMPATÍA ── -->
+<section class="section empathy">
+  <div class="section-inner">
+    <div class="section-center">
+      <span class="section-label">Lo entendemos</span>
+      <h2 class="section-title">Gestionar una clínica es mucho más<br/>que tratar pacientes</h2>
+      <p class="section-sub">Tu equipo dedica horas cada semana a tareas repetitivas que no aportan valor clínico ni humano. Y aun así, los huecos vacíos siguen apareciendo.</p>
     </div>
-    <div class="pain-card">
-      <div class="icon">⭐</div>
-      <h3>Pocas reseñas en Google</h3>
-      <p>El servicio es bueno pero nadie lo publica. Los pacientes satisfechos no dejan reseñas si no se las pides en el momento adecuado.</p>
-    </div>
-    <div class="pain-card">
-      <div class="icon">🕐</div>
-      <h3>Tiempo del personal en gestiones repetitivas</h3>
-      <p>Confirmar citas, responder dudas básicas, enviar recordatorios — horas al día en tareas que puede hacer la IA.</p>
+    <div class="empathy-grid" style="margin-top:2.5rem">
+      <div class="empathy-card">
+        <div class="icon">📞</div>
+        <h3>Llamadas que no contestan</h3>
+        <p>Recordar citas manualmente consume tiempo y aun así no garantiza que el paciente aparezca. Un canal siempre activo marca la diferencia.</p>
+      </div>
+      <div class="empathy-card">
+        <div class="icon">📅</div>
+        <h3>Huecos en la agenda</h3>
+        <p>Una ausencia de última hora puede significar 45-60 minutos perdidos. Confirmaciones automáticas reducen ese riesgo drásticamente.</p>
+      </div>
+      <div class="empathy-card">
+        <div class="icon">⭐</div>
+        <h3>Reseñas que nunca llegan</h3>
+        <p>El paciente sale satisfecho pero rara vez deja reseña por falta de tiempo. Un mensaje en el momento justo lo cambia todo.</p>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- HOW IT WORKS -->
-<div class="how-bg" id="como-funciona">
-  <div class="section section-center">
-    <span class="label">La solución</span>
-    <h2>Así funciona el Agente de Citas Ainertia</h2>
-    <p class="subtitle">Integrado con tu agenda. Activo 24h. Sin instalar nada en tu clínica.</p>
+<!-- ── SOLUCIÓN ── -->
+<section class="section solution">
+  <div class="section-inner">
+    <div class="solution-grid">
+      <!-- Chat simulado -->
+      <div class="solution-visual">
+        <div style="font-size:.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:1rem">WhatsApp · Asistente de Clínica Dental</div>
+        <div class="chat-bubble">
+          Hola Ana 👋 Te recordamos tu cita de mañana martes 25 a las 10:30 con Dr. Fernández. ¿Confirmas asistencia?
+        </div>
+        <div class="chat-meta">Asistente · 09:15</div>
+        <div class="chat-bubble bot" style="margin-top:1rem">Sí, confirmo ✅</div>
+        <div class="chat-meta right">Ana · 09:18</div>
+        <div class="chat-bubble" style="margin-top:1rem">¡Perfecto! Te esperamos. Si necesitas cambiarla, escríbenos aquí mismo 😊</div>
+        <div class="chat-meta">Asistente · 09:18</div>
+        <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border);font-size:.78rem;color:var(--muted);text-align:center">
+          3 horas después de la cita...
+        </div>
+        <div class="chat-bubble" style="margin-top:1rem">
+          Ana, ¿cómo ha ido la visita? Si estás contenta con el trato, nos ayudaría mucho que dejaras una reseña en Google 🙏
+        </div>
+        <div class="chat-meta">Asistente · 13:45</div>
+      </div>
+
+      <!-- Puntos de valor -->
+      <div>
+        <span class="section-label">La solución</span>
+        <h2 class="section-title" style="text-align:left">Un asistente que trabaja por ti, 24 horas al día</h2>
+        <p style="color:var(--muted);margin-bottom:2rem;font-size:.95rem">Conectado a tu agenda. Actúa solo cuando tiene que actuar. Sin errores, sin olvidos, sin esperas.</p>
+        <div class="solution-points">
+          <div class="sol-point">
+            <div class="sol-icon">🔔</div>
+            <div>
+              <h4>Recordatorios automáticos por WhatsApp</h4>
+              <p>24h antes, con confirmación en un clic. Sin llamadas, sin burocracia.</p>
+            </div>
+          </div>
+          <div class="sol-point">
+            <div class="sol-icon">📋</div>
+            <div>
+              <h4>Gestión de cancelaciones y reagendados</h4>
+              <p>El paciente cancela directamente por WhatsApp y el hueco se libera al instante.</p>
+            </div>
+          </div>
+          <div class="sol-point">
+            <div class="sol-icon">⭐</div>
+            <div>
+              <h4>Solicitud de reseñas en el momento justo</h4>
+              <p>Mensaje automático tras la visita cuando la satisfacción está en su punto más alto.</p>
+            </div>
+          </div>
+          <div class="sol-point">
+            <div class="sol-icon">📊</div>
+            <div>
+              <h4>Panel de control simple y claro</h4>
+              <p>Ves todo en un vistazo: confirmaciones, bajas, reseñas obtenidas esta semana.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RESULTADOS ── -->
+<section class="section results" id="resultados">
+  <div class="section-inner section-center">
+    <span class="section-label">Resultados reales</span>
+    <h2 class="section-title">Números que hablan por sí solos</h2>
+    <p class="section-sub">Basados en clínicas dentales que ya usan automatización por WhatsApp en España.</p>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-number">−45%</div>
+        <div class="metric-label">Reducción de ausencias y cancelaciones de última hora</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number">3×</div>
+        <div class="metric-label">Más reseñas en Google en los primeros 60 días</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number">6h</div>
+        <div class="metric-label">Horas semanales liberadas para tu equipo de recepción</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CÓMO FUNCIONA ── -->
+<section class="section how">
+  <div class="section-inner section-center">
+    <span class="section-label">Proceso</span>
+    <h2 class="section-title">En marcha en menos de 24 horas</h2>
+    <p class="section-sub">Sin instalar software, sin cambiar tu sistema de gestión. Se conecta a lo que ya tienes.</p>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <h3>Conectamos tu agenda</h3>
-        <p>Nos integramos con tu sistema actual (cualquier software de citas) o con una agenda simple de Google Calendar.</p>
+        <h3>Llamada de 30 min</h3>
+        <p>Entendemos cómo funciona tu clínica y qué quieres automatizar.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3>El asistente avisa por WhatsApp</h3>
-        <p>24h antes de cada cita, el paciente recibe un mensaje con opción de confirmar, cancelar o reagendar con un toque.</p>
+        <h3>Configuración</h3>
+        <p>Adaptamos mensajes, horarios y flujos a tu imagen de marca.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h3>Tras la visita, pide la reseña</h3>
-        <p>Automáticamente envía un mensaje de seguimiento y, si el paciente está satisfecho, le lleva directo a Google para valorar.</p>
+        <h3>Prueba real</h3>
+        <p>Lo probamos juntos con pacientes reales antes del lanzamiento.</p>
       </div>
       <div class="step">
         <div class="step-num">4</div>
-        <h3>Tú solo supervisas</h3>
-        <p>Panel simple con todas las conversaciones. Puedes intervenir cuando quieras. El resto lo gestiona la IA.</p>
+        <h3>En marcha</h3>
+        <p>Tu asistente ya trabaja solo. Tú solo revisas el panel cuando quieras.</p>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- RESULTS -->
-<div class="section section-center">
-  <span class="label">Resultados reales</span>
-  <h2>Lo que consiguen las clínicas que lo usan</h2>
-  <div class="results-grid">
-    <div class="result-card">
-      <div class="number">45%</div>
-      <div class="desc">Reducción de ausencias de media en los primeros 30 días</div>
-    </div>
-    <div class="result-card">
-      <div class="number">+20%</div>
-      <div class="desc">Más reseñas en Google al mes sin ningún esfuerzo extra</div>
-    </div>
-    <div class="result-card">
-      <div class="number">3h</div>
-      <div class="desc">Horas de trabajo administrativo ahorradas cada semana</div>
-    </div>
-    <div class="result-card">
-      <div class="number">&lt;7 días</div>
-      <div class="desc">Tiempo desde la reunión inicial hasta el sistema funcionando</div>
-    </div>
-  </div>
-
-  <div class="testimonial">
-    <blockquote>"Antes perdíamos entre 6 y 8 citas a la semana. Ahora el asistente las confirma solo y si un paciente cancela, ya tenemos otro en su lugar automáticamente. Ha cambiado nuestra operativa por completo."</blockquote>
-    <cite>— Directora de clínica dental, Córdoba</cite>
-  </div>
-</div>
-
-<!-- FORM -->
-<section class="form-section" id="contacto">
-  <div class="form-wrap">
-    <span class="label" style="color: var(--green);">Empieza hoy</span>
-    <h2>Solicita tu demo gratuita</h2>
-    <p>Sin compromiso. En 15 minutos te enseñamos cómo funciona con tu clínica concreta.</p>
-
-    <form action="https://formspree.io/f/XXXXXXXX" method="POST">
-      <div class="form-group">
-        <label for="nombre">Nombre y apellidos *</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Ej: María García" required />
-      </div>
-      <div class="form-group">
-        <label for="clinica">Nombre de la clínica *</label>
-        <input type="text" id="clinica" name="clinica" placeholder="Ej: Clínica Dental García" required />
-      </div>
-      <div class="form-group">
-        <label for="email">Email *</label>
-        <input type="email" id="email" name="email" placeholder="correo@tuclinica.es" required />
-      </div>
-      <div class="form-group">
-        <label for="telefono">Teléfono (WhatsApp preferible)</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000" />
-      </div>
-      <div class="form-group">
-        <label for="citas">¿Cuántas citas gestionáis al mes aproximadamente?</label>
-        <select id="citas" name="citas">
-          <option value="">Selecciona...</option>
-          <option value="menos-50">Menos de 50</option>
-          <option value="50-150">50 a 150</option>
-          <option value="150-300">150 a 300</option>
-          <option value="mas-300">Más de 300</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="mensaje">¿Algo que quieras contarnos? (opcional)</label>
-        <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos tu situación actual..."></textarea>
-      </div>
-      <input type="hidden" name="_subject" value="Nueva solicitud demo — Clínicas Dentales" />
-      <input type="hidden" name="_next" value="https://ainertia.ai/gracias" />
-      <button type="submit" class="form-submit">Quiero mi demo gratuita →</button>
-      <p class="form-note">🔒 Tus datos están seguros. Sin spam. Sin compromisos.</p>
-    </form>
   </div>
 </section>
 
-<!-- FAQ -->
-<div class="section section-center">
-  <span class="label">Preguntas frecuentes</span>
-  <h2>Lo que siempre nos preguntan</h2>
-  <div class="faq-list">
-    <details class="faq-item">
-      <summary>¿Necesito cambiar mi software de citas actual?</summary>
-      <p>No. Nos integramos con el sistema que ya tienes. Si no tienes ninguno, te ayudamos a configurar uno sencillo sin coste.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Cuánto tiempo tarda en estar funcionando?</summary>
-      <p>Menos de una semana desde la reunión inicial. En algunos casos lo tenemos activo en 48 horas.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Qué pasa si un paciente quiere hablar con una persona?</summary>
-      <p>El asistente detecta cuando la consulta requiere atención humana y transfiere la conversación a tu equipo de forma transparente.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Cuánto cuesta?</summary>
-      <p>El coste mensual es inferior al valor de una sola cita perdida. Te damos precio exacto en la demo según el volumen de tu clínica.</p>
-    </details>
-    <details class="faq-item">
-      <summary>¿Cumple con la RGPD?</summary>
-      <p>Sí. Todos los datos de pacientes se tratan conforme al RGPD. Ainertia Capital cuenta con Delegado de Protección de Datos interno.</p>
-    </details>
+<!-- ── TESTIMONIAL ── -->
+<section class="section testimonial">
+  <div class="section-inner section-center">
+    <span class="section-label">Experiencia de cliente</span>
+    <h2 class="section-title">Lo que dicen quienes ya lo usan</h2>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Llevábamos años gestionando los recordatorios a mano. Desde que implantamos el asistente, las ausencias han bajado muchísimo y tenemos el doble de reseñas en Google. Lo mejor es que no tuvimos que cambiar nada de nuestro software habitual."</p>
+      <div class="testi-author">Clínica Dental Ruiz-Morales</div>
+      <div class="testi-role">Sevilla · Clínica familiar, 2 dentistas</div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- FOOTER -->
+<!-- ── CTA / CONTACTO ── -->
+<section class="cta-section" id="contacto">
+  <span class="section-label">Sin compromiso</span>
+  <h2 class="section-title">¿Hablamos? Cuéntanos cómo es tu clínica</h2>
+  <p class="section-sub">Una llamada de 20 minutos es suficiente para saber si tiene sentido para ti. Sin presiones, sin letra pequeña.</p>
+
+  <form class="cta-form" action="https://formspree.io/f/XXXXXXXX" method="POST">
+    <input type="text" name="nombre" placeholder="Tu nombre" required />
+    <input type="tel" name="telefono" placeholder="WhatsApp o teléfono" required />
+    <button type="submit" class="btn-primary">Quiero saberlo →</button>
+  </form>
+  <p class="cta-note">También puedes escribirnos directamente a <a href="mailto:hola@ainertia.io" style="color:var(--blue)">hola@ainertia.io</a></p>
+  <div class="cta-guarantee">🔒 Tus datos no se comparten con terceros. Solo te contactamos nosotros.</div>
+</section>
+
+<!-- ── FOOTER ── -->
 <footer>
-  <p>© 2025 Ainertia Capital S.L. · Córdoba, España · <a href="https://ainertia.ai">ainertia.ai</a> · <a href="mailto:Comercial@ainertia.ai">Comercial@ainertia.ai</a></p>
-  <p style="margin-top: 0.5rem;"><a href="#">Política de privacidad</a> · <a href="#">Aviso legal</a></p>
+  <p>© 2026 <a href="https://ainertia.io">Ainertia Capital S.L.</a> · Córdoba, España · <a href="mailto:hola@ainertia.io">hola@ainertia.io</a></p>
 </footer>
-
-<!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/34XXXXXXXXX?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20el%20agente%20de%20citas%20para%20mi%20cl%C3%ADnica" class="wa-btn" title="Escríbenos por WhatsApp">💬</a>
 
 </body>
 </html>
